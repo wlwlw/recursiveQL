@@ -1,28 +1,70 @@
 \section{Stable Model Semantics}
-
+Keywords: 
+\begin{itemize}
+    \item Negation as failure (1 p26): One concludes not X if X is not a consequence. 
+    \item Nonmonotonic reasoning (5 p4): 
+    \begin{itemize}
+        \item Default logic:
+        \item Autoepistemic logic:
+    \end{itemize}
+    \item Herbrand models (2 p2): a set of ground terms of a program P, whose interpretation 
+    makes every ground term denote itself.
+    \item Program completion (5 p2): a certain set of first-order formulas that represents a logic 
+    programming.
+    \item Horn clauses (1 p27): a disjunction of literals (atoms or negated atoms) with at most one of 
+    them positive.
+    \item Ground atoms: atoms with no variables.
+    \item Stratified programs (recusion and negation do not mix) and iterated fixed point model 
+    \item Locally stratified programs and perfect models.
+\end{itemize}
 \subsection{Stable Models}
 \begin{itemize}
     \item Definition
         \begin{itemize}
-            \item Relations to nonmonotonic reasoning - autoepistemic logic and default logic.
-            \item Reduction process.
+            \item Relations to nonmonotonic reasoning - autoepistemic logic and default logic (2, 5)
+            \item Different definitions of stable models:
+            \begin{itemize}
+                \item Reduct (2)
+                    \begin{itemize}
+                        \item Examples
+                    \end{itemize}
+                \item Modified circumscription to turn a logic program into a formula of second-order logic (3, 4)
+                \begin{itemize}
+                    \item Examples
+                \end{itemize}
+            \end{itemize}
         \end{itemize}
     \item Properties.
         \begin{itemize}
-            \item Theorem: Any stable set of a logic program $P$ is a minimal Herbrand model of P.
-            \item A program $P$ might have no or many stable models -> well-founded semantics fixes this.
+            \item Theorem: Any stable set of a logic program $P$ is a minimal Herbrand model of P. (2)
+            \item A program $P$ might have no or many stable models $\longrightarrow$ well-founded semantics fixes this.
+            \item If program P has a well-founded model, then that model is its unique stable model. (2)
+            \item If program P is locally stratified, then it has a unique stable model that coincides with 
+            the perfect model.
             \item Testing whether a finite ground logic program has a stable model is NP-complete.
             \item Limitations: generate all the ground instances in the presence of function symbols.
         \end{itemize}
-    \item Datalog and stable models.
 \end{itemize}
 
-\subsection{Examples}
+\subsection{Stable Logic Programming} (5)
+\begin{itemize}
+    \item Comparisons to the Horn logic programming.
+    \item Syntax is the same as Datalog with negation: no function symbols $\Rightarrow$ the Herbrand universe of finite Horn programs 
+    is finite, supports negation as failure. 
+    \item Expressive power: a decision problem can be solved by a uniform SLP program if and only if 
+    it is in the class NP. On the other hand, Horn programs can specify any recursively enumerable set.
+    \item Uniform control in SLP (5) to process SLP programs and compute their stable models.
+    Mention \textit{smodels}.
+\end{itemize}
 
 \subsection{Answer Set Programming}
 \begin{itemize}
+    \item Tie back to the definition of stable models as the translation of first-order logic 
+    formulas to second-order logic formulas (modified circumscription). 
+    $\longrightarrow$ this extends the stable model semantics to support constructs found in ASP. (5)
     \item ASP constructs: choice rules, cardinality constraints, and disjuntive rules. 
     \item Search problems are reduced to computing stable models.
     \item Programming methodology: generate, define, test
     \item Classical negation + negation as failure = closed world assumption
+    \item LPARSE and SMODELS
 \end{itemize}
