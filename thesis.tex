@@ -4,11 +4,6 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 
-\setcounter{secnumdepth}{4}
-
-%-------------------------------------
-% CS61 students begin copying here
-
 \def\ojoin{\setbox0=\hbox{$\bowtie$}%
   \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
 \def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
@@ -30,81 +25,24 @@ depth0pt width0.6pt}}$}}
 \newcommand{\Project}{\mbox{$\Pi$}}
 \newcommand{\aggregatefn}{\mbox{\Large$G$}}
 
-% CS61 students end copying here
-%-------------------------------------
-\newtheorem{theorem}{Theorem}
+\newtheorem{theorem}{Theorem} 
 \newtheorem{claim}[theorem]{Claim}
-
-
 
 \begin{document}
 
-\title{Query Languages with Recursion}
-\author{Tien Ho}
+\title{Query Languages with Recursion and Negation}
+\author{Liang Wang, Wei-Lin Wu, Tien Ho}
 \maketitle
+
+\begin{abstract}
+  Hello
+\end{abstract}
 
 \begin{center}
 %{\bf Liang Wang (lwang107@ucsc.edu)}
 \end{center}
 
-\section{Relational Algebra special characters}
-\begin{table}[!th]
-\begin{tabular}{|l|c|r|}
-\hline
-selection &  $\select_{cname<cname2 \wedge enr>10000} E$ \\
-projection &  $\project_{cname} E$ \\
-aggregate function &  $_{g_1,g_2,...} \aggregatefn_{h_1,h_2,...,h_m}$ \\
-\hline
-\end{tabular}
-\caption{Unary operators}
-\end{table}
-
-\begin{table}[!th]
-\begin{tabular}{|l|c|r|}
-\hline
-union & 			\union \\
-intersection & 		\intersection \\
-difference & 		- \\
-cartesian product & \cross \\
-division & 			$\div$ \\
-rename & 			$\rho$ \\
-natural join & 		$\bowtie$ \\
-theta join & 		$\bowtie_{\theta}$ \\
-left semijoin & 	$\leftsemijoin$ \\
-right semijoin & 	$\rightsemijoin$ \\ 
-left outer join & 	$\leftouterjoin$ \\
-right outer join & 	$\rightouterjoin$ \\
-full outer join & 	$\fullouterjoin$ \\
-antijoin & 			? \\
-\hline
-\end{tabular}
-\caption{Binaryoperators}
-\end{table}
-
-\begin{table}[!th]
-\begin{tabular}{|l|c|r|}
-\hline
-Logical AND & 	$\wedge$ \\
-Logical OR & 	$\vee$ \\
-Logical NOT & 	$\neg$ \\
-null & 			$\omega$ \\
-\hline
-\end{tabular}
-\caption{Logic symbols and others}
-\end{table}
-
-%Example (Your \LaTeX  skills are likely superior to mine!):
-\begin{displaymath}
-Grades \leftarrow \project_{(students.ssn, students.name, grades.grade)} \\
-(\select_{students.ccn = grades.ccn \wedge grades.assignment = 1} \\
-(students \cross grades)) \\
-\end{displaymath}
-
-\begin{eqnarray*}
-Grades & \leftarrow & \project_{(students.ssn, students.name, grades.grade)}  \\
-       &            &(\select_{(students.ssn, students.name, grades.grade)}  \\
-       &            &          (students \cross grades)) 
-\end{eqnarray*}
+\section{Relational Algebra special characters} \input{Symbols}
 
 \section{Introduction}
 
@@ -144,6 +82,8 @@ PSPACE
 \subsection{Problems}
 
 \input{StableModel}
+
+\section{Conclusion}
 
 \begin{thebibliography}{9}
   \bibitem{lifschitz0} 
