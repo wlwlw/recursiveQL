@@ -1,4 +1,3 @@
-\section{Stable Model Semantics}
 Consider the following logic program with negation:
 \begin{align}
     \begin{split}
@@ -7,36 +6,37 @@ Consider the following logic program with negation:
     \end{split}
 \end{align}
 which has two minimal Herbrand models:
-\begin{align}
+\begin{align*}
     \{p(a),p(b),q(a),r(b)\}
-\end{align}
+\end{align*}
 and 
-\begin{align}
+\begin{align*}
     \{p(a),p(b),q(a),q(b)\}
-\end{align}
+\end{align*}
 Accordingly, adding negation to Horn logic programs may result in the existence of multiple minimal Herbrand models. 
 Two approaches are proposed to preserve the notion of a single intended model for a logic program. 
-Apt, Blair, and Walker introduce a stratified class of logic programs in which recursions and negation are 
-mutually exclusive. In this case, there exists a single \textit{perfect model} for every stratifed program. 
+Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
+mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratifed program. 
 This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
 The second approach removes this restriction by assigning to an arbitrary program a single 3-valued 
-model using the well-found semantics. We explain this semantics in more detail in Section 8. The 
+model using the \emph{well-found semantics}. We explain this semantics in more detail in Section 8. The 
 well-founded semantics is a specification of what is called the stable model semantics, which 
-embraces a collection of intended models for a logic program with negation.
+assigns a collection of intended models rather than a single one to a logic program with negation.
 
 In this section, we discuss the semantics and applications of stable models. There is a large body 
-of study on the concept of a stable models based on different interpretations. To put our report into 
-context, we first cover the grounding definition of stable models introduced in Gelfond and Lifschitz (2), 
-which provides an intuitive mechanism to model logic programs with negation. Then, we describe another 
-technique to obtain a stable model by the use of modified circumscription to translate a logic program 
+of study on the concept of a stable model based on different interpretations. To put our report into 
+context, we first cover the classic grounding definition of stable models introduced in Gelfond and Lifschitz [2], 
+which provides an intuitive mechanism using autoepistemic logic to model logic programs with negation. 
+Then, we describe the modern  
+technique of circumscription to obtain a stable model by translating a logic program 
 into a formula of second-order logic (4). The second interpretation of stable models gives semantics 
 to nontraditional constructs found in answer set programming (ASP). Subsection 7.2 examines the role of 
 stable model semantics in logic programming and compares it with traditional Horn logic. Finally, 
-we illustrate the use of stable models in ASP. 
+we illustrate the application of stable models in ASP. 
  
 \subsection{Definition}
 The theory behind stable models arises from nonmonotonic reasoning, which states the possibility 
-of retracting a conclusion given new information (5). For instance, we can conclude $r(b)$ from 
+of retracting a conclusion given new information [5]. For instance, we can conclude $r(b)$ from 
 program (1), but this conclusion is invalid if fact $q(b)$ is added. Logic programming with 
 negation can be translated into two nonmonotinic formalisms: default and autoepistemic logic. 
 Autoepistemic logic couples each set $A$ of axioms with the operator $L$ to express the idea that 
@@ -50,7 +50,7 @@ $\neg LA$. We can rewrite program (1) using autoepistemic logic:
     \end{split}
 \end{align}
 where each ground negative literal $\neg B$ becomes $\neg LB$. It follows from the 
-autoepistemic theory that program (4) has a unique stable expansion, whose atoms 
+autoepistemic theory that program (2) has a unique stable expansion, whose atoms 
 form the intended model. Observe that the program is 
 grounded to remove its variables before the translation. Autoepistemic logic provives an intuitive 
 representation of negation as failure as the absence of belief. 
@@ -66,14 +66,14 @@ Accordingly, program (1) corresponds to the following default logic:
     \end{split}
 \end{align}
 Even though default logic allows the use of variables in a default, each variable is simply 
-the syntactic sugar for a set of its ground instances. Thus, programs (4) and (5) are essentially 
+the syntactic sugar for a set of its ground instances. Thus, programs (2) and (3) are essentially 
 the same: asserting $q(a)$ and $q(b)$ are not believed is synonymous to asserting that it is consistent to assume 
 $\neg q(X)$. Scoping a logic program within the perimeter of its ground instances is a key step 
 towards the first definition of a stable model. 
 
 \subsubsection{Gelfond-Lifschitz Reduct}
-The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation (2) 
-process of removing negations from a logic program $\Pi$. 
+The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation 
+process [2] of removing negations from a logic program $\Pi$. 
 We first ground $\Pi$ so that each variable occurence in $\Pi$ is replaced by its ground instances. 
 The reduct of $\Pi$ relative to a set $M$ of its ground atoms is obtained by the following two 
 elimination procedures:
@@ -81,8 +81,10 @@ elimination procedures:
     \item Eliminating each rule with a negative literal $not \: A_i$ with $A_i \in M$, and 
     \item Eliminating all the negative literals from the bodies of the remaining rules.
 \end{enumerate}
-Under the assumption that $M$ is a model of $\Pi$, if a rule $R$ contains a literal $not \: A_i$ 
-such that $A_i \in M$, then we cannot establish $not A_i$. Hence, $R$ is false in $M$ and can be 
+The reduct of $\Pi$ follows the intuition behind a stable expansion in 
+autoepistemic logic. Here, $M$ is considered the possible set of beliefs that a rational 
+agent might hold, given $\Pi$ as his premises [2]. If a rule $R$ contains a literal $not \: A_i$ 
+such that $A_i \in M$, then we cannot establish $not \: A_i$. Hence, $R$ is false in $M$ and can be 
 removed from $\Pi$, as stated in procedure (i). Otherwise, if $A_i \not \in M$, we can conclude 
 $not \: A_i$, and this literal is trivial. Removing $not \: A_i$ from the body of $R$ in 
 procedure (ii) does not change the semantics of the program. Since the reduct of $\Pi$ no longer 
@@ -90,13 +92,11 @@ contains any negation, it has a unique minimal Herbrand model.
 It follows that $M$ is a stable model of $\Pi$ if it coincides with such minimal Herbrand model.
 
 Let $\Pi$ be program (1), where each rule is replaced by its ground instances 
-\begin{align}
-    \begin{split}
-        & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
-        & r(a) \leftarrow p(a), \neg q(a). \\ 
-        & r(b) \leftarrow p(b), \neg q(b).
-    \end{split}
-\end{align}
+\begin{align*}
+    & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
+    & r(a) \leftarrow p(a), \neg q(a). \\ 
+    & r(b) \leftarrow p(b), \neg q(b).
+\end{align*}
 Let $M = \{p(a),r(a)\}$. Then the reduct of $\Pi$, $\Pi _M$, is 
 \begin{align*}
     & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
@@ -114,7 +114,7 @@ In this case, the least model of $\Pi _M$ coincides with $M$, and $M$ is stable.
 
 The Gelfond-Lifschitz reduct provides an intuitive way to represent a logic 
 program with negation by removing the negation itself. However, this definition 
-of a stable models has its limitations. First of all, the reduction process relies 
+of a stable model has its limitations. First of all, the reduction process relies 
 on the grounding of a logic program, which can prove impractical in the presence of 
 function symbols. In this case, there are infinitely many ground instances. 
 Secondly, the reduct of a logic program serves only to verify whether a predetermined 
@@ -125,9 +125,9 @@ model helps offset these limitations.
 \subsubsection{Circumscription}
 Similar to autoepistemic and default logic, circumscription is another variant of 
 nonmonotonic reasoning that exerts minimization on the extension of predicates in 
-second-order logic. We have been using minimal Herbrand models to describe the semantics 
-of logic programs. Yet, a logic program can be seen as a representation of a set of 
-first-order formulas called \textbf{\emph{program completion}}. For instance, program (6) 
+second-order logic [5]. We have been using minimal Herbrand models to describe the semantics 
+of logic programs. Yet, a logic program can also be seen as a representation of a set of 
+first-order formulas called \emph{program completion}. For instance, program (1) 
 represents the following formula
 \begin{align}
     \forall x (p(x) \leftrightarrow x = a \lor x = b) \land 
@@ -142,11 +142,11 @@ with a new symbol $p'$. The circumscription of $F$, $CIRC[F]$, is denoted as
 where $p$ is the set of all predicate constants in $F$, $u$ is the set of distinct 
 predicate variables of the same length, and $F(u)$ substitutes the variables $u$ for 
 the constants $p$. The second conjunctive term of $CIRC[F]$ expresses the minimal 
-condition of the predicates $p$ in the sense we cannot further reduce $p$ without 
+condition of the predicates $p$ in the sense that we cannot further reduce $p$ without 
 invalidating $F$. The third conjunctive term asserts that each new predicate is 
 equivalent to its old predicate.
 
-For example, let $F$ be formula (7) where each negative literal is renamed.
+For example, let $F$ be formula (4) where each negative literal is renamed.
 \begin{align*}
     \forall x (p(x) \leftrightarrow x = a \lor x = b) \land 
     \forall x (q(x) \leftrightarrow x = a) \land 
@@ -162,7 +162,7 @@ then $CIRC[F]$ is
         \forall x (v(x) \leftrightarrow x = a) \land 
         \\ \forall x (u(x) \land \neg q'(x) \rightarrow z(x)) 
     ) 
-    \land \forall x (q'(x) \leftrightarrow v(x))
+    \land \forall x (q'(x) \leftrightarrow q(x))
 \end{multline*}
 
 \subsubsection{Modified Circumscription}
@@ -173,9 +173,10 @@ a program completion $F$, $SM[F]$, which is denoted as
 \begin{align}
     F \land \neg \exists u((u < p) \land F^*(u)) 
 \end{align}
-where $u$, $p$ are the same symbols used for sentence (8), and $F^*(u)$ 
+where $u$, $p$ are the same symbols used for the original circumscription formula (5), 
+and $F^*(u)$ 
 replaces each predicate constant $p_i$ that is not a negation with 
-the corresponding predicate variable $u_i$. Hence, formula (7) could 
+the corresponding predicate variable $u_i$. Hence, formula (4) could 
 have been simply rewritten as 
 \begin{multline*}
     \forall x (p(x) \leftrightarrow x = a \lor x = b) \land 
@@ -189,40 +190,39 @@ have been simply rewritten as
 \end{multline*}
 
 It follows 
-that an Herbrand interpretation that satisfies $SM[F]$ is a stable model. 
-Note that $SM[F]$ is identical to $CIRC[F]$ if $F$ is negation-free. On the 
-other hand, $SM[F]$ differs from $CIRC[F]$ by not replacing  
+that any Herbrand interpretation that satisfies $SM[F]$ is a stable model. 
+Note that $SM[F]$ is identical to $CIRC[F]$ if $F$ is negation-free. 
+$SM[F]$ differs from $CIRC[F]$ by not replacing  
 negated predicates with auxiliary predicates and adding an additional 
-conjunctive term to relate the two. In addition to the applicability 
-to non-ground programs, the modified version of circumscription 
+conjunctive term to relate the two. In addition to the omission of 
+grounding, the modified version of circumscription 
 extends the stable model semantics to programs with nontraditional constructs 
 (such as choice rules, disjunctive rules, and constraints) used in ASP as 
 long as they are expressible in first-order logic. The Gelfond-Lifschitz reduct, 
 on the other hand, is only applicable to programs in the form of Horn clauses.
-The syntax of ASP is covered in section 7.4.
 
 \subsection{Properties}
 Because of its intuitive definition, the stable model semantics is commonly 
-accepted as the standard for logic programming with negation. Stable models 
-also benefit from the following properties:
+accepted as the standard for logic programming with negation. The 
+following are the properties of the stable model semantics:
 \begin{enumerate}[label=(\roman*)]
-    \item Any stable set of a logic program $\Pi$ is its minimal Herbrand model [2]. 
+    \item Any stable model of a logic program $\Pi$ is its minimal Herbrand model [2]. 
     \item A well-founded model of $\Pi$ defines its unique stable model [2]. 
     \item If $\Pi$ is stratified, then there is a unique stable model that coincides 
     with the perfect model of $\Pi$ [2].
-    \item Any stable model of $\Pi$ is a subset of the set of head atoms in $\Pi$.
+    \item Any stable model of $\Pi$ is a subset of the set of head atoms in $\Pi$ [8].
     \item $\Pi$ might have several stable models, or no stable models at all. For 
     instance, the program consisting of one rule $p \leftarrow not \: p$ has no 
-    stable models; and the program with two rules $p \leftarrow not \: q$ 
+    stable models, while the program with two rules $p \leftarrow not \: q$ 
     and $q \leftarrow not \: p$ has two stable models, $\{p\}$ nad $\{q\}$. The 
-    well-founded semantics helps solve this problem [2].
+    well-founded semantics helps solve this shortcoming of the stable model 
+    semantics by ensuring the existence of a unique stable model for $\Pi$ [1].
     \item If there are several stable models for $\Pi$, they are both minimal 
     and incomparable [1]. 
     \item The problem of determining the existence of a stable model for a finite 
-    propositional logic program is NP-complete. This follows from the expressive 
+    propositional logic program is NP-complete [6]. This follows from the expressive 
     power of the stable model semantics to represent all decision and search 
-    problems in NP. An example of solving a the hamiltonian cycle problem 
-    using stable models is covered in the next section. 
+    problems in NP. 
 \end{enumerate}
 
 \subsection{Stable Logic Programming} 
@@ -230,20 +230,23 @@ We have seen that a logic program might have several incomparable stable models,
 which brings into question the use of stable models as the semantics for 
 logic programming with negation. Rather 
 than trying to reconcile the stable model semantics with Horn logic programming, 
-Marek and Truszczynski [5] argues that the lack of a single intended model 
-makes the stable model semantics suitable for representing solutions 
-as a finite family of finite sets to some constraint satisfaction problems [5]. 
-They refer to this alternative to Horn logic programming 
+Marek and Truszczynski [6] argue that the lack of a single intended model 
+makes the stable model semantics suitable for representing 
+some constraint satisfaction problems whose solutions 
+are a finite family of finite sets to [6]. 
+They refer logic programming based on the stable model semantics  
 as stable logic programming (SLP). A decision problem that is associated with 
 stable models is whether a finite logic program has a stable model. If we 
 encode an instance $I$ of a decision problem $\Pi$ in the class NP as a propositional program 
 $P ^I _ \Pi$, then $\Pi$ has a solution for $I$ if and only if $P ^I _ \Pi$ 
-has a stable model [5]. Hence, the problem of the existence of a stable model is 
-NP-complete, as stated in property (vi). It also follows that any decision and search 
-problem in NP is solvable using SLP [5]. 
+has a stable model [6]. Hence, the problem of the existence of a stable model is 
+NP-complete, as stated in property (vii). In comparison to Horn logic programming 
+which can specify any recursively enumerable set, SLP is only able 
+to solve NP problems [6], which, however, are among the most important computational 
+problems in computer science.
 
 Unlike Horn logic programming, SLP disallows the use of function symbols in favor of 
-a finite set of grounding instances and thus stable models. The syntax of SLP emulates 
+a finite set of grounding instances and stable models. The syntax of SLP emulates 
 that of DATALOG with negation. The absence of function symbols, however, restricts the 
 use of recursion in SLP. In fact, recursion is defined in terms of intensional predicates, 
 and not in terms of function symbols additionally used in Horn logic programming. Instead 
@@ -254,19 +257,20 @@ generate-and-test methodology is the basis of answer set programming.
 One key feature of logic programming is the separation of logic from control. The logic 
 of a program itself determines the solutions without any execution specifications from 
 the programmer. In Horn logic programming, the control of a program is accomplished 
-using the \textit{SLD-resolution} to compute the solutions. Accordingly, SLP also 
+using the \textit{SLD-resolution} to compute the solutions [6]. Accordingly, SLP also 
 has some uniform control mechanisms to process SLP programs and compute their stable models. 
 Since there are no function symbols in SLP, it is possible to exhaust all subsets of the 
-finite Herbrand base of a SLP program to search for stable model candidates. Both the 
+finite Herbrand base of a SLP program for stable model candidates. Both the 
 expressive power to encode NP search problems and the availability of 
-a uniform control mechanism makes SLP a useful computational tool, as found in answer set 
+a uniform control mechanism make SLP a useful computational tool. One such example is answer set 
 programming.
 
 \subsection{Answer Set Programming}
 Answer set programming is a form of stable logic programming that solves difficult 
-search problems. ASP uses an answer set solver such as \textit{smodels} as a uniform control 
-to compute stable models as solutions to search problems. The frontend of \textit{smodels}, 
-\textit{lparse}, defines a set of constructs to formulate a search problem. 
+search problems [8]. ASP uses an answer set solver such as \textit{smodels} as a uniform control 
+to compute stable models as solutions to a search problem. The frontend of \textit{smodels}, 
+called \textit{lparse}, defines a set of constructs to formulate a search problem before 
+being analyzed by the answer set solver. 
 
 \subsubsection{Syntax}
 Programs 
@@ -278,7 +282,7 @@ describes all possible subsets of a given set $p$.
 
 \textit{lparse} also provides cardinality expressions $l \: \{...\} \: u$ to impose numerical 
 bounds on a choice rule, where $l$ is a lower bound and $u$ is an upper bound. We can change 
-program (10) to contain a lower bound for the head atom, 
+rule (7) to contain a lower bound for the head atom, 
 \begin{align*}
     1 \: \{q(X)\} \: \mathop{:\!\!-} \: p(X).
 \end{align*}
@@ -304,22 +308,26 @@ So far, we have only discussed programs with negation as failure. ASP also suppo
 strong negation in the form of $-p$ to express ``$p$ is false'' as opposed to 
 the negation as failure $not \: p$ to express ``$p$ is not known to be true''. Combining 
 both kinds of negation $-p \: \mathop{:\!\!-} \: not \: p$ gives the closed world assumption 
-stating that ``$p$ is false if there is no evidence that it is true''. Strong negation 
+stating that ``$p$ is false if there is no evidence that it is true'' [8]. Strong negation 
 is useful to represent negative facts in an incomplete state of knowledge.
 
-Finally, a constraint is a rule with an empty head $\mathop{:\!\!-} p$, which prohibits 
-any generation of a literal $p$. Constraints appear in almost every ASP to weed out 
-"bad" stable models. All of the constructs in ASP is expressible in first-order 
-logic. Hence, the stable models of an ASP program can be determined using the 
+Finally, a constraint is a rule with an empty head 
+\begin{align*}
+    \mathop{:\!\!-} \: p
+\end{align*}
+which prohibits 
+any generation of a literal $p$. Constraints appear in almost every ASP program to weed out 
+``bad'' stable models. All of the constructs in ASP are expressible in first-order 
+logic [3]. Hence, the stable models of an ASP program can be determined using the 
 technique of modified circumscription.
 
 \subsubsection{Generate-and-Test}
 The logic of an ASP program follows the generate-and-test methodology introduced in 
 stable logic programming. The two steps are first (1) to generate all possible stable models 
 for a program, and then (2) to select only those that satisfy additional constraints. Let us 
-consider an example ASP program to find Hamiltonian cycle in a directed graph. First of all, 
+consider an example ASP program to find Hamiltonian cycle in a directed graph [7]. First of all, 
 we define a directed graph $G$ with a set of vertices $V$ and a set of edges $E$: 
-$vertex(a)$ for all vertices $a \in V$, and $edge(a,b)$ for all edges $(a,b) \in E$. Next, 
+$vertex(a)$ for all vertices $a \in V$, and $edge(a,b)$ for all directed edges $(a,b) \in E$. Next, 
 we generate all potential stable models for this problem using the choice rule 
 \begin{align*}
     & \{ \: in(X,Y) \: \} \: \mathop{:\!\!-} \: edge(X,Y). 
@@ -331,22 +339,17 @@ cycle. Adding the following constraints
     & \mathop{:\!\!-} \: 2 \: \{in(X,Y) \: : \: edge(X,Y)\}, \: vertex(Y). 
 \end{align*}
 eliminates subsets of edges that contains pairs of edges starting or ending at the same 
-vertex. We further refine stable models to the problem with these additional clauses: 
+vertex. We further refine the stable models to the problem with these additional clauses: 
 \begin{align*}
     & r(X) \: \mathop{:\!\!-} \: in(0,Y), \: vertex(X).\\
     & r(Y) \: \mathop{:\!\!-} \: r(X), \: in(X,Y), \: edge(X,Y). \\ 
-    & \mathop{:\!\!-} \: not \: r(X), \: vertex(X)
+    & \mathop{:\!\!-} \: not \: r(X), \: vertex(X).
 \end{align*}
-Accordingly, the final stable models encodes a cycle wherein every vertex is reachable from an initial 
-vertex by a non-empty sequence of $in$ edges.   
+Accordingly, each of the final stable models encodes a Hamiltonian cycle wherein every vertex in the graph 
+is reachable from an initial 
+vertex by a non-empty sequence of $in$ edges.  \\ 
 
-\begin{itemize}
-    \item Expressive power: a decision problem can be solved by a uniform SLP program if and only if 
-    it is in the class NP. On the other hand, Horn programs can specify any recursively enumerable set.
-    Mention \textit{smodels}.
-\end{itemize}
-
-Keywords: 
+Footnotes maybe?: 
 \begin{itemize}
     \item Herbrand models (2 p2): a set of ground terms of a program P, whose interpretation 
     makes every ground term denote itself.
