@@ -1,5 +1,3 @@
-\newpage
-\section{Least Fixpoint Queries}
 The least fixpoint queries we discuss here refer to domain relational calculus with least fixpoint operator extension, as described in textbook\cite{Abiteboul1}, which is intuitively least fixpoint logic under the context of relational database theory. We first briefly describe its syntax and sematics in the first section, where we skip the part belong to relation calculus and focus on the definition of least fixpoint operator. Then we will put our attention on the discuss of its expressive power and data complexity in second one. \\
 We are also going to cover several important theorems related to these topics and probably contain some simple sketch of proof.
 
@@ -18,7 +16,7 @@ Now after restrict the relational calculus formula we used to define operator to
 \begin{description}
 
 \item[Syntax:]
-Let $\varphi(\textbf{x},\textbf{y}, S_1,S_2,..,S_n, T)$ be a relational calculus formula, where $\textbf{x}=(x_1, x_2,...,x_k)$, $\textbf{y}=(y_1,y_2,...,y_m)$ are variables, $S_1,S_2,..,S_n, T$ are relation symbols and $\varphi$ is positive in $T$. Let $\textbf{u}=(u_1, u_2,...,u_k)$ be a k-tuple of variable not occuring in $\varphi$. Then $[\textbf{lfp}\,T\textbf{x}.\varphi](u)$ is a least fixpoint formula. And more specifically, if $\varphi$ only consists of $\textbf{x}$ and $T$, then we can write the corresponding least fixpoint formula compactly as $\mu_T(\varphi)(u)$. We call $\mu_T$ the least fixpoint operator. Farther more, the queries that are definable by least fixpoint formula are called least fixpoint queries.\\
+Let $\varphi(\textbf{x},\textbf{y}, S_1,S_2,..,S_n, T)$ be a relational calculus formula, where $\textbf{x}=(x_1, \\x_2,...,x_k)$, $\textbf{y}=(y_1,y_2,...,y_m)$ are variables, $S_1,S_2,..,S_n, T$ are relation symbols and $\varphi$ is positive in $T$. Let $\textbf{u}=(u_1, u_2,...,u_k)$ be a k-tuple of variable not occuring in $\varphi$. Then $[\textbf{lfp}\,T\textbf{x}.\varphi](u)$ is a least fixpoint formula. And more specifically, if $\varphi$ only consists of $\textbf{x}$ and $T$, then we can write the corresponding least fixpoint formula compactly as $\mu_T(\varphi)(u)$. We call $\mu_T$ the least fixpoint operator. Farther more, the queries that are definable by least fixpoint formula are called least fixpoint queries.\\
 
 \item[Sematics:]
 Given database instance $A$ and a tuple $a$, then $A, a \models [\textbf{lfp}\,T\textbf{x}.\varphi](u)$ if $A, a \models R(u)$ where R is interpreted as a relation such that $R=\textbf{lfp}(\Phi)$, where $\Phi$ is a k-ary operator such that
