@@ -1,77 +1,15 @@
-Consider the following logic program with negation:
-\begin{align}
-    \begin{split}
-        & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
-        & r(X) \leftarrow p(X), not \: q(X).
-    \end{split}
-\end{align}
-which has two minimal Herbrand models:
-\begin{align*}
-    \{p(a),p(b),q(a),r(b)\}
-\end{align*}
-and 
-\begin{align*}
-    \{p(a),p(b),q(a),q(b)\}
-\end{align*}
-Accordingly, adding negation to Horn logic programs may result in the existence of multiple minimal Herbrand models. 
-Two approaches are proposed to preserve the notion of a single intended model for a logic program. 
-Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
-mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratifed program. 
-This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
-The second approach removes this restriction by assigning to an arbitrary program a single 3-valued 
-model using the \emph{well-found semantics}. We explain this semantics in more detail in Section 8. The 
-well-founded semantics is a specification of what is called the stable model semantics, which 
-assigns a collection of intended models rather than a single one to a logic program with negation.
-
-In this section, we discuss the semantics and applications of stable models. There is a large body 
+There is a large body 
 of study on the concept of a stable model based on different interpretations. To put our report into 
 context, we first cover the classic grounding definition of stable models introduced in Gelfond and Lifschitz [2], 
 which provides an intuitive mechanism using autoepistemic logic to model logic programs with negation. 
 Then, we describe the modern  
 technique of circumscription to obtain a stable model by translating a logic program 
 into a formula of second-order logic (4). The second interpretation of stable models gives semantics 
-to nontraditional constructs found in answer set programming (ASP). Subsection 7.2 examines the role of 
+to nontraditional constructs found in answer set programming (ASP). Subsection 4.5 examines the role of 
 stable model semantics in logic programming and compares it with traditional Horn logic. Finally, 
 we illustrate the application of stable models in ASP. 
- 
-\subsection{Definition}
-The theory behind stable models arises from nonmonotonic reasoning, which states the possibility 
-of retracting a conclusion given new information [5]. For instance, we can conclude $r(b)$ from 
-program (1), but this conclusion is invalid if fact $q(b)$ is added. Logic programming with 
-negation can be translated into two nonmonotinic formalisms: default and autoepistemic logic. 
-Autoepistemic logic couples each set $A$ of axioms with the operator $L$ to express the idea that 
-$A$ is believed to be true, or $LA$. Conversely, the expression $not \: A$ is analogous to the autoepistemic formula 
-$\neg LA$. We can rewrite program (1) using autoepistemic logic:
-\begin{align}
-    \begin{split}
-        & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
-        & r(a) \leftarrow p(a), \neg Lq(a). \\ 
-        & r(b) \leftarrow p(b), \neg Lq(b).
-    \end{split}
-\end{align}
-where each ground negative literal $\neg B$ becomes $\neg LB$. It follows from the 
-autoepistemic theory that program (2) has a unique stable expansion, whose atoms 
-form the intended model. Observe that the program is 
-grounded to remove its variables before the translation. Autoepistemic logic provives an intuitive 
-representation of negation as failure as the absence of belief. 
 
-A logic program with negation can also be translated into default logic, where the head 
-of each rule becomes the conclusion, the conjunction of positive literals becomes the premise, 
-and each negative literal becomes a justification $M \neg A$ (which reads as ``it is consistent to assume $\neg A$''). 
-Accordingly, program (1) corresponds to the following default logic:
-\begin{align}
-    \begin{split}
-        \frac{}{p(a)} \hspace{1cm} \frac{}{p(b)} \hspace{1cm} &\frac{}{q(a)} \\ 
-        \frac{p(X) \: : \: M \neg q(X)}{r(X)}&
-    \end{split}
-\end{align}
-Even though default logic allows the use of variables in a default, each variable is simply 
-the syntactic sugar for a set of its ground instances. Thus, programs (2) and (3) are essentially 
-the same: asserting $q(a)$ and $q(b)$ are not believed is synonymous to asserting that it is consistent to assume 
-$\neg q(X)$. Scoping a logic program within the perimeter of its ground instances is a key step 
-towards the first definition of a stable model. 
-
-\subsubsection{Gelfond-Lifschitz Reduct}
+\subsection{Gelfond-Lifschitz Reduct}
 The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation 
 process [2] of removing negations from a logic program $\Pi$. 
 We first ground $\Pi$ so that each variable occurence in $\Pi$ is replaced by its ground instances. 
@@ -120,9 +58,9 @@ function symbols. In this case, there are infinitely many ground instances.
 Secondly, the reduct of a logic program serves only to verify whether a predetermined 
 set $M$ of ground atoms is stable or not. It is more convenient to have a systematic 
 technique to generate a stable model without guessing. The next definition of a stable 
-model helps offset these limitations.
+model removes the hassle of grounding through the use of circumscription.
 
-\subsubsection{Circumscription}
+\subsection{Circumscription}
 Similar to autoepistemic and default logic, circumscription is another variant of 
 nonmonotonic reasoning that exerts minimization on the extension of predicates in 
 second-order logic [5]. We have been using minimal Herbrand models to describe the semantics 
@@ -165,7 +103,7 @@ then $CIRC[F]$ is
     \land \forall x (q'(x) \leftrightarrow q(x))
 \end{multline*}
 
-\subsubsection{Modified Circumscription}
+\subsection{Modified Circumscription}
 One advantage that circumscription has over the Gelfond-Lifschitz reduct 
 is the omission of grounding as the preliminary step to determine a stable 
 model. Ferraris et al. [4] proposes a modification of circumscription of 
@@ -325,7 +263,7 @@ technique of modified circumscription.
 The logic of an ASP program follows the generate-and-test methodology introduced in 
 stable logic programming. The two steps are first (1) to generate all possible stable models 
 for a program, and then (2) to select only those that satisfy additional constraints. Let us 
-consider an example ASP program to find Hamiltonian cycle in a directed graph [7]. First of all, 
+consider an example ASP program to find Hamiltonian cycles in a directed graph [7]. First of all, 
 we define a directed graph $G$ with a set of vertices $V$ and a set of edges $E$: 
 $vertex(a)$ for all vertices $a \in V$, and $edge(a,b)$ for all directed edges $(a,b) \in E$. Next, 
 we generate all potential stable models for this problem using the choice rule 
@@ -347,15 +285,12 @@ vertex. We further refine the stable models to the problem with these additional
 \end{align*}
 Accordingly, each of the final stable models encodes a Hamiltonian cycle wherein every vertex in the graph 
 is reachable from an initial 
-vertex by a non-empty sequence of $in$ edges.  \\ 
+vertex by a non-empty sequence of $in$ edges.
 
-Footnotes maybe?: 
-\begin{itemize}
-    \item Herbrand models (2 p2): a set of ground terms of a program P, whose interpretation 
-    makes every ground term denote itself.
-    \item Horn clauses (1 p27): a disjunction of literals (atoms or negated atoms) with at most one of 
-    them positive.
-    \item Ground atoms: atoms with no variables.
-    \item Stratified programs (recusion and negation do not mix) and iterated fixed point model 
-    \item Locally stratified programs and perfect models.
-\end{itemize}
+We have presented two definitions of a stable model using the classic 
+Gelfond-\\Lifschitz reduct method 
+and modified circumscription. Even though the stable model semantics has its limitation in 
+defining a single intended problem of a logic program, it is suitable for solving 
+the type of search problems that involve multiple solutions. One such application is answer 
+set programming, which computes stable models as solutions to a search problem. The next 
+section discusses an alternative semantics for logic programming with negation.

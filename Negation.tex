@@ -1,0 +1,69 @@
+We have discussed the extension of the relational calculus with recursive queries 
+using the least fixpoint semantics. Another desirable feature that is absent from 
+basic logic programming is negation. There are two forms of negation: strong (``classical'') 
+negation to express falsity and negation as failure to express non-truth. The 
+latter is a weaker version of negation: insteading of concluding 
+$\neg p$ if $p$ is true, we conclude $not \: p$ if $p$ is not known to be true. 
+Classical negation can be problematic in logic programming that computes 
+recursively enumerable relations because their complements cannot be computed [1]. 
+Going forward, we will instead focus on logic programs with negation as failure. 
+
+The theory behind negation as failure arises from nonmonotonic reasoning, which states 
+the possibility of retracting a conclusion given new information [5]. For instance, 
+Consider the following logic program with negation as failure:
+\begin{align}
+    \begin{split}
+        & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
+        & r(X) \leftarrow p(X), not \: q(X).
+    \end{split}
+\end{align}
+we can conclude $r(b)$ from 
+program (1), but this conclusion is invalid if fact $q(b)$ is added. Logic programming with 
+negation can be translated into two nonmonotinic formalisms: default and autoepistemic logic. 
+Autoepistemic logic couples each set $A$ of axioms with the operator $L$ to express the idea that 
+$A$ is believed to be true, or $LA$. Conversely, the expression $not \: A$ is analogous to the autoepistemic formula 
+$\neg LA$. We can rewrite program (1) using autoepistemic logic:
+\begin{align}
+    \begin{split}
+        & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
+        & r(a) \leftarrow p(a), \neg Lq(a). \\ 
+        & r(b) \leftarrow p(b), \neg Lq(b).
+    \end{split}
+\end{align}
+where each ground negative literal $\neg B$ becomes $\neg LB$. It follows from the 
+autoepistemic theory that program (2) has a unique stable expansion, whose atoms 
+form the intended model. Observe that the program is 
+grounded to remove its variables before the translation. Autoepistemic logic provives an intuitive 
+representation of negation as failure as the absence of belief. 
+
+A logic program with negation can also be translated into default logic, where the head 
+of each rule becomes the conclusion, the conjunction of positive literals becomes the premise, 
+and each negative literal becomes a justification $M \neg A$ (which reads as ``it is consistent to assume $\neg A$''). 
+Accordingly, program (1) corresponds to the following default logic:
+\begin{align}
+    \begin{split}
+        \frac{}{p(a)} \hspace{1cm} \frac{}{p(b)} \hspace{1cm} &\frac{}{q(a)} \\ 
+        \frac{p(X) \: : \: M \neg q(X)}{r(X)}&
+    \end{split}
+\end{align}
+Even though default logic allows the use of variables in a default, each variable is simply 
+the syntactic sugar for a set of its ground instances. Thus, programs (2) and (3) are essentially 
+the same: asserting $q(a)$ and $q(b)$ are not believed is synonymous to asserting that it is consistent to assume 
+$\neg q(X)$. Scoping a logic program within the perimeter of its ground instances is a key step 
+towards the first definition of a stable model. 
+
+Adding negation to Horn logic programs \footnote{Logic programs composed of Horn clauses, 
+each of which is a disjunction of literals (atoms or negated atoms) with at most one of 
+them positive.}, however, may result in the existence of multiple minimal 
+Herbrand models \footnote{A set of ground terms of a program P, whose interpretation 
+makes every ground term denote itself.}. 
+Program (1) has two minimal models, $\{p(a),p(b),\\q(a),r(b)\}$ and $\{p(a),p(b),q(a),q(b)\}$.
+Two approaches are proposed to preserve the notion of a single intended model for a logic program. 
+Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
+mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratifed program. 
+This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
+The second approach removes this restriction by assigning to an arbitrary program a single 3-valued 
+model using the \emph{well-found semantics}. We explain this semantics in more detail in Section 5. The 
+well-founded semantics is a specification of what is called the stable model semantics, which 
+assigns a collection of intended models rather than a single one to a logic program with negation. 
+We first discuss the semantics and applications of stable models in the following section. 
