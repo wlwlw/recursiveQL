@@ -12,7 +12,7 @@ we illustrate the application of stable models in ASP.
 \subsection{Gelfond-Lifschitz Reduct}
 The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation 
 process [2] of removing negations from a logic program $\Pi$. 
-We first ground $\Pi$ so that each variable occurence in $\Pi$ is replaced by its ground instances. 
+We first ground $\Pi$ so that each variable occurrence in $\Pi$ is replaced by its ground instances. 
 The reduct of $\Pi$ relative to a set $M$ of its ground atoms is obtained by the following two 
 elimination procedures:
 \begin{enumerate}[label=(\roman*)]
@@ -72,7 +72,7 @@ represents the following formula
     \forall x (q(x) \leftrightarrow x = a) \land 
     \forall x (p(x) \land \neg q(x) \rightarrow r(x))
 \end{align}
-Given a program completion $F$, we first replace all the occurences of negative literals 
+Given a program completion $F$, we first replace all the occurrences of negative literals 
 with a new symbol $p'$. The circumscription of $F$, $CIRC[F]$, is denoted as 
 \begin{align}
     F \land \neg \exists u((u < p) \land F(u)) \land \forall x (p'(x) \leftrightarrow p(x))

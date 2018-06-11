@@ -19,10 +19,10 @@ Consider the following logic program with negation as failure:
 \end{align}
 we can conclude $r(b)$ from 
 program (1), but this conclusion is invalid if fact $q(b)$ is added. Logic programming with 
-negation can be translated into two nonmonotinic formalisms: default and autoepistemic logic. 
+negation can be translated into two nonmonotonic formalisms: default and autoepistemic logic. 
 Autoepistemic logic couples each set $A$ of axioms with the operator $L$ to express the idea that 
-$A$ is believed to be true, or $LA$. Conversely, the expression $not \: A$ is analogous to the autoepistemic formula 
-$\neg LA$. We can rewrite program (1) using autoepistemic logic:
+$A$ is believed to be true, or $LA$. Conversely, the expression $not \: A$ is analogous to the 
+autoepistemic formula $\neg LA$. We can rewrite program (1) using autoepistemic logic:
 \begin{align}
     \begin{split}
         & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
@@ -33,7 +33,7 @@ $\neg LA$. We can rewrite program (1) using autoepistemic logic:
 where each ground negative literal $\neg B$ becomes $\neg LB$. It follows from the 
 autoepistemic theory that program (2) has a unique stable expansion, whose atoms 
 form the intended model. Observe that the program is 
-grounded to remove its variables before the translation. Autoepistemic logic provives an intuitive 
+grounded to remove its variables before the translation. Autoepistemic logic provides an intuitive 
 representation of negation as failure as the absence of belief. 
 
 A logic program with negation can also be translated into default logic, where the head 
@@ -60,7 +60,7 @@ makes every ground term denote itself.}.
 Program (1) has two minimal models, $\{p(a),p(b),\\q(a),r(b)\}$ and $\{p(a),p(b),q(a),q(b)\}$.
 Two approaches are proposed to preserve the notion of a single intended model for a logic program. 
 Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
-mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratifed program. 
+mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratified program. 
 This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
 The second approach removes this restriction by assigning to an arbitrary program a single 3-valued 
 model using the \emph{well-found semantics}. We explain this semantics in more detail in Section 5. The 
