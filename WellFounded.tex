@@ -1,0 +1,38 @@
+%\begin{align*}, multiline*
+%\subsection{a}
+Allowing negation in the body of a rule of to have general logic programs may have another problem: As indicated by some research, some programs do not have a satisfactory \emph{total} model. It is thus natural to seek an appropriate \emph{partial} model for such programs.
+
+In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics, is introduced and compared to it as well as to other semantics.
+
+\subsection{Preliminaries}
+In this subsection, We explain some notions that are used in well-founded semantics.
+
+Given a program $\mathrm{P}$, its \emph{Herbrand universe} is the set of ground terms formed from constants and function symbols in $\mathrm{P}$, and its \emph{Herbrand base} is the set of predicates applied to the ground terms in the Herbrand universe. Note that the program $\mathrm{P}$ may not contain constants or function symbols. In the absence of the former, a constant is added arbitrarily; in the absence of the latter, we then have that both the Herbrand universe and the Herbrand base are countably infinite (otherwise they are finite). An \emph{instantiated rule} of $\mathrm{P}$ is one in which all occurrences of variables are replaced by ground terms in the Herbrand universe. The \emph{Herbrand instantiation} of $\mathrm{P}$ is the set of all instantiated rules.
+
+For a ground atomic formula $p$ (a single predicate applied to ground terms), we say $p$ itself its \emph{positive literal}, and $\neg p$ its \emph{negative literal}; these two literals are \emph{complements} of each other. If $S$ is a set of literals, $\neg \cdot S$ denotes the set obtained by taking the complement of each literal in $S$; we say a literal $q$ is \emph{inconsistent} with $S$ if $q \in \neg \cdot S$; two sets $R$ and $S$ of literals are \emph{inconsistent} if their intersection is nonempty, i.e.\ $R \cap \neg \cdot S \neq \emptyset$; $S$ is \emph{inconsistent} if it is inconsistent with itself, i.e.\ some literal and its complement both appear in $S$; $S$ is \emph{consistent} if it is not inconsistent.
+
+Given a program $\mathrm{P}$, a \emph{partial interpretation} $I$ is a consistent set of literals that are formed from the atomic formulas in the Herbrand base of $\mathrm{P}$. A partial interpretation $I$ is said to be \emph{total} if for any ground atomic formula $p$ in the Herbrand base either of its literal is contained in $I$. A literal $p$ is \emph{true in $I$} if $p \in I$ and is \emph{false in $I$} if its complement is in $I$. This notion can be straightforwardly extended to conjunctions in the normal way.
+
+An instantiated rule of a program $\mathrm{P}$ is \emph{satisfied} in a (partial or total) interpretation $I$ if the head (which is a ground atomic formula) is true in $I$ or some subgoal in the body of that rule is false in $I$; the rule is \emph{falsified} in $I$ if the head is false and all subgoals are true. Moreover, if the head of the rule is false in $I$, but no subgoal is false in it then the rule is said to be \emph{weakly falsified} in $I$. Thus, a rule is weakly falsified if it is falsified, but not vice versa.
+
+A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that satisfies all instantiated rules of $\mathrm{P}$. A \emph{partial model} of $\mathrm{P}$ is a partial interpretation that can be extended to a total model of $\mathrm{P}$.
+\ \medskip\\
+\noindent\textbf{Remarks.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item Intuitively, a partial interpretation may contain incomplete information: The positive (or negative) literals in it are considered to be true (or false, respectively) atomic facts, and the truth values of the rest of the ground atomic formulas are considered unknown, or unspecified, at least ``at present.''
+%
+\item Since interpretations are sets, it is natural to consider one to be contained in another if the former is a subset of the latter.
+%
+\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some instantiated rules of it, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied.
+%
+\item TO ADD
+%
+\end{enumerate}
+
+\subsection{Unfounded Sets and Well-Founded Partial Models}
+TO BE DONE
+\subsection{Comparisons}
+TO BE DONE
+\subsection{Computational Complexity}
+TO BE DONE
