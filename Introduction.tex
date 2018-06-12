@@ -1,3 +1,20 @@
+The query languages we have considered so far, including relational calculus, 
+relational algebra, and Datalog, all have their expressive limitations. While 
+it is proved that neither the calculus nor the algebra is able to express 
+recursive queries, Datalog overcomes this limitation yet still lacks support 
+for negation. Consider the following query,
+\begin{displayquote}
+    \textit{``Find all the pairs of vertices in a 
+    graph that are not connected.''}
+\end{displayquote}
+This query is not possible without the use of both recursion and negation. 
+In this paper, we explore the extension of relational calculus with 
+recursion using the least fixpoint semantics, as well as examine the interpretation  
+of logic programs with negation as failure using the stable model 
+and well-founded semantics.
+
+(Least fixpoint)
+
 In addition to recursion, another desirable addition to database query languages 
 is negation. In this paper, we explore a weaker version of classical negation called 
 \emph{negation as failure} to specify nonmonotonic programs. However, a logic 
@@ -30,6 +47,8 @@ a powerful computational tool in artificial
 intelligence and operations research where focus 
 revolves around many search and constraint satisfaction 
 problems in NP.
+
+(Well-founded semantics)
 
 The organization of this paper is as follows. First, we 
 explore the extension of the relational calculus with recursion 

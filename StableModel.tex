@@ -251,7 +251,7 @@ is useful to represent negative facts in an incomplete state of knowledge.
 
 Finally, a constraint is a rule with an empty head 
 \begin{align*}
-    \mathop{:\!\!-} \: p
+    \mathop{:\!\!-} \: p.
 \end{align*}
 which prohibits 
 any generation of a literal $p$. Constraints appear in almost every ASP program to weed out 
@@ -293,4 +293,5 @@ and modified circumscription. Even though the stable model semantics has its lim
 defining a single intended problem of a logic program, it is suitable for solving 
 the type of search problems that involve multiple solutions. One such application is answer 
 set programming, which computes stable models as solutions to a search problem. The next 
-section discusses an alternative semantics for logic programming with negation.
+section discusses an alternative semantics for logic programming with negation using 
+a well-founded model.
