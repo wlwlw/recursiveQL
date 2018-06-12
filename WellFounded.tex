@@ -1,5 +1,4 @@
 %\begin{align*}, multiline*
-%\subsection{a}
 Allowing negation in the body of a rule of to have general logic programs may have another problem: As indicated by some research, some programs do not have a satisfactory \emph{total} model. It is thus natural to seek an appropriate \emph{partial} model for such programs.
 
 In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics, is introduced and compared to it as well as to other semantics.
@@ -20,11 +19,11 @@ A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that sa
 \noindent\textbf{Remarks.}
 \begin{enumerate}[label=(\alph*)]
 %
-\item Intuitively, a partial interpretation may contain incomplete information: The positive (or negative) literals in it are considered to be true (or false, respectively) atomic facts, and the truth values of the rest of the ground atomic formulas are considered unknown, or unspecified, at least ``at present.''
+\item The reader may think of a partial interpretation as containing incomplete information: The positive (or negative) literals in it are considered to be true (or false, respectively) atomic facts, and the truth values of the rest of the ground atomic formulas are considered unknown, or unspecified, at least ``at present.''
 %
 \item Since interpretations are sets, it is natural to consider one to be contained in another if the former is a subset of the latter.
 %
-\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some instantiated rules of it, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied.
+\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some instantiated rules of it, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied. Of course, this cannot be done if $I$ falsifies every instantiated rule; if $I$ only weakly falsifies some rules, then there is still hope for this extension; and \emph{if $I$ does not weakly falsify any instantiated rule, then $I$ is a partial model of $\mathrm{P}$}.
 %
 \item TO ADD
 %
