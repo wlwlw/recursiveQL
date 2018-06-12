@@ -1,1 +1,42 @@
-The organization of this paper is as follows: 
+In addition to recursion, another desirable addition to database query languages 
+is negation. In this paper, we explore a weaker version of classical negation called 
+\emph{negation as failure} to specify nonmonotonic programs. However, a logic 
+program with negation as failure might have more than one minimal Herbrand model 
+\footnote{A set of ground terms of a program P, whose interpretation 
+makes every ground term denote itself.}. Hence, it is important 
+to come up with a semantics that defines the correct minimal 
+model for a program with and without negation. Two such semantics 
+are stable models and well-founded models. A conventional 
+definition of a stable model
+describes a set $M$ of ground atoms that matches with the least model 
+of a grounded program whose negative literals are eliminated with respect to 
+$M$. In this sense, the stable model semantics coincides with 
+the least model semantics on positive programs. Under this 
+semantics, a program can also have multiple stable models. Even though 
+this problem can be fixed using the well-founded semantics, 
+it makes the stable model semantics suitable for solving search 
+problems whose solutions are numerous and incomparable. Such 
+application is found in answer set programming (ASP), wherein 
+solutions to a search problems are computed as stable models 
+that satisfy both the program specifications and additional constraints. 
+This type of logic programming based on stable models has lower 
+expressive power than the conventional Horn logic programming 
+\footnote{Logic programs composed of Horn clauses, 
+each of which is a disjunction of literals (atoms or negated atoms) with at most one of 
+them positive.}. While Horn programs can express any recursively enumerable set, 
+ASP programs are only able to solve decision problems in the NP class. 
+Nonetheless, the stable model semantics is still 
+a powerful computational tool in artificial 
+intelligence and operations research where focus 
+revolves around many search and constraint satisfaction 
+problems in NP.
+
+The organization of this paper is as follows. First, we 
+explore the extension of the relational calculus with recursion 
+using the least fixpoint semantics. We then discuss the effects 
+of negation in logic programming by describing the nonmonotonic 
+formalism behind negation as failure and the problem of 
+having more than one minimal Herbrand models. Section 4 and 5 
+study the stable model and well-founded semantics as the two 
+commonly accepted mechanisms to represent logic programs with 
+negation. The last section puts our work into perspective.

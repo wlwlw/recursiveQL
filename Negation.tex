@@ -52,13 +52,14 @@ the same: asserting $q(a)$ and $q(b)$ are not believed is synonymous to assertin
 $\neg q(X)$. Scoping a logic program within the perimeter of its ground instances is a key step 
 towards the first definition of a stable model. 
 
-Adding negation to Horn logic programs \footnote{Logic programs composed of Horn clauses, 
-each of which is a disjunction of literals (atoms or negated atoms) with at most one of 
-them positive.}, however, may result in the existence of multiple minimal 
-Herbrand models \footnote{A set of ground terms of a program P, whose interpretation 
-makes every ground term denote itself.}. 
-Program (1) has two minimal models, $\{p(a),p(b),\\q(a),r(b)\}$ and $\{p(a),p(b),q(a),q(b)\}$.
-Two approaches are proposed to preserve the notion of a single intended model for a logic program. 
+Adding negation to Horn logic programs, however, may result in the existence of multiple minimal 
+Herbrand models. 
+Program (1) has two minimal models, $\{p(a),p(b),\\q(a),r(b)\}$ and $\{p(a),p(b),q(a),q(b)\}$. 
+Observe that the latter model is considered ``bad'' because $q(b)$ is not supposed to be true. 
+The major challenge when extending logic programming with negation is to invent a semantics that 
+captures the correct minimal model of a program. 
+Two approaches are proposed to preserve the notion of a single intended model for a logic program 
+in the presence of negation. 
 Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
 mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratified program. 
 This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
