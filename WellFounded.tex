@@ -1,144 +1,77 @@
-\documentclass[11pt]{article}
-\usepackage{fullpage,amsthm,amsfonts,amssymb,epsfig,amsmath,times,amsthm}
-\usepackage{csquotes}
-\usepackage[margin=4cm]{geometry}
-\usepackage{enumitem}
-\usepackage{titlesec}
+%\begin{align*}, multiline*
+Allowing negation in the body of a rule of to have general logic programs may have another problem: As indicated by some research, some programs do not have a satisfactory \emph{total} model. It is thus natural to seek an appropriate \emph{partial} model for such programs.
 
-\def\ojoin{\setbox0=\hbox{$\bowtie$}%
-  \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
-\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
-\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
-\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
+In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in \ref{VanGelder}, is explained and compared to it as well as to other semantics.
 
-% Relational algebra symbols from ftp://reports.stanford.edu/www/dbgroup_only/latex-macros.html
-\newcommand{\select}{\mbox{\Large$\sigma$}}
-\newcommand{\cross}{\mbox{$\times$}}
-\newcommand{\intersection}{\mbox{$\cap$}}
-\newcommand{\intersect}{\mbox{$\cap$}}
-\newcommand{\union}{\mbox{$\cup$}}
-\newcommand{\join}{\mbox{$\Join$}}
-\newcommand{\leftsemijoin}{\mbox{$\mathrel{\raise1pt\hbox{\vrule height5pt
-depth0pt width0.6pt\hskip-1.5pt$>$\hskip -2.5pt$<$}}$}}
-\newcommand{\rightsemijoin}{\mbox{$\mathrel{\raise1pt\hbox{\hskip-1.5pt$>$\hskip -2.5pt$<$\hskip -1.1pt\vrule height5pt
-depth0pt width0.6pt}}$}}
-\newcommand{\project}{\mbox{\Large$\pi$}}
-\newcommand{\Project}{\mbox{$\Pi$}}
-\newcommand{\aggregatefn}{\mbox{\Large$G$}}
+\subsection{Preliminaries}
+In this subsection, We explain some notions that are used in well-founded semantics.
 
-\newtheorem{theorem}{Theorem} 
-\newtheorem{claim}[theorem]{Claim}
+Given a program $\mathrm{P}$, its \emph{Herbrand universe} is the set of ground terms formed from constants and function symbols in $\mathrm{P}$, and its \emph{Herbrand base} is the set of predicates applied to the ground terms in the Herbrand universe. Note that the program $\mathrm{P}$ may not contain constants or function symbols. In the absence of the former, a constant is added arbitrarily; in the absence of the latter, we then have that both the Herbrand universe and the Herbrand base are countably infinite (otherwise they are finite). An \emph{instantiated rule} of $\mathrm{P}$ is one in which all occurrences of variables are replaced by ground terms in the Herbrand universe. The \emph{Herbrand instantiation} of $\mathrm{P}$ is the set of all instantiated rules.
 
-\begin{document}
+For a ground atomic formula $p$ (a single predicate applied to ground terms), we say $p$ itself its \emph{positive literal}, and $\neg p$ its \emph{negative literal}; these two literals are \emph{complements} of each other. If $S$ is a set of literals, $\neg \cdot S$ denotes the set obtained by taking the complement of each literal in $S$; we say a literal $q$ is \emph{inconsistent} with $S$ if $q \in \neg \cdot S$; two sets $R$ and $S$ of literals are \emph{inconsistent} if their intersection is nonempty, i.e.\ $R \cap \neg \cdot S \neq \emptyset$; $S$ is \emph{inconsistent} if it is inconsistent with itself, i.e.\ some literal and its complement both appear in $S$; $S$ is \emph{consistent} if it is not inconsistent.
 
-\title{Query Languages with Recursion and Negation}
-\author{Liang Wang, Wei-Lin Wu, Tien Ho}
-\maketitle
+Given a program $\mathrm{P}$, a \emph{partial interpretation} $I$ is a consistent set of literals that are formed from the atomic formulas in the Herbrand base of $\mathrm{P}$. A partial interpretation $I$ is said to be \emph{total} if for any ground atomic formula $p$ in the Herbrand base either of its literal is contained in $I$. A literal $p$ is \emph{true in $I$} if $p \in I$ and is \emph{false in $I$} if its complement is in $I$. This notion can be straightforwardly extended to conjunctions in the normal way.
 
-\begin{abstract}
-  In this paper, we explore the extension of the query languages we have 
-  learned so far with recursion and negation. It is known that 
-  recursive queries are not expressible in relational calculus. The least 
-  fixpoint semantics helps overcome this limitation by using a fixpoint 
-  operator to evaluate recursion. Extending logic programming with negation 
-  also adds the complication of a logic program having multiple minimal 
-  Herbrand models. We discuss the stable model and well-founded semantics 
-  as the two common mechanisms to generalize the least model semantics 
-  for both positive and negative programs. In addition, the well-founded semantics 
-  solves the issue of some programs having more than one stable model.
-\end{abstract}
+An instantiated rule of a program $\mathrm{P}$ is \emph{satisfied} in a (partial or total) interpretation $I$ if the head (which is a ground atomic formula) is true in $I$ or some subgoal in the body of that rule is false in $I$; the rule is \emph{falsified} in $I$ if the head is false and all subgoals are true. Moreover, if the head of the rule is false in $I$, but no subgoal is false in it then the rule is said to be \emph{weakly falsified} in $I$. Thus, a rule is weakly falsified if it is falsified, but not vice versa.
 
-\section{Introduction} \input{Introduction}
-\section{Least Fixpoint Queries} \input{Fixpoint}
-\section{Negation in Logic Programming} \input{Negation}
-\section{Stable Model Semantics} \input{StableModel}
-\section{Well-Founded Semantics} \input{WellFounded}
-\section{Conclusion} \input{Conclusion}
+A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that satisfies all instantiated rules of $\mathrm{P}$. A \emph{partial model} of $\mathrm{P}$ is a partial interpretation that can be extended to a total model of $\mathrm{P}$.
+\ \medskip\\
+\noindent\textbf{Remarks.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item The reader may think of a partial interpretation as containing incomplete information: The positive (or negative) literals in it are considered to be true (or false, respectively) atomic facts, and the truth values of the rest of the ground atomic formulas are considered unknown, or unspecified, at least ``at present.''
+%
+\item Since interpretations are sets, it is natural to consider one to be contained in another if the former is a subset of the latter.
+%
+\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some instantiated rules of it, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied. Of course, this cannot be done if $I$ falsifies every instantiated rule; if $I$ only weakly falsifies some rules, then there is still hope for this extension; and \emph{if $I$ does not weakly falsify any instantiated rule, then $I$ is a partial model of $\mathrm{P}$}.
+%
+\end{enumerate}
 
-\begin{thebibliography}{9}
-  \bibitem{lifschitz0} 
-  Vladimir Lifschitz. 
-  What is answer set programming? 
-  In \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, pages 1594-1597. 
-  MIT Press, 1988.
+\subsection{Unfounded Sets and Well-Founded Partial Models}
+Having described the preliminaries in the previous subsection, we explain the notions of unfounded sets and well-founded partial models, which are the main part of \ref{VanGelder}.
 
-  \bibitem{lifschitz1} 
-  Vladimir Lifschitz. 
-  Datalog Programs and their stable models.
-  In \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, pages 1594-1597. 
-  MIT Press, 1988.
+\subsubsection{Unfounded Sets}
+Given a program $\mathrm{P}$, let $H$ denote the Herbrand base of $\mathrm{P}$, and assume $I$ is a partial interpretation of $\mathrm{P}$. We say $A \subseteq H$ is an \emph{unfounded set} of $\mathrm{P}$ with respect to $I$ if this condition is true for each ground atomic formula $p \in A$: Either there is no instantiated rule of $\mathrm{P}$ for $p$ or, for each instantiated rule $r$ of $\mathrm{P}$ whose head is $p$, at least one of the following statement is true
+\begin{enumerate}[label=(\arabic*)]
+%
+\item Some (positive or negative) subgoal of the body is false in $I$,
+%
+\item Some positive subgoal of the body occurs in A.
+%
+\end{enumerate}
+A literal that makes (1) or (2) above true is called a \emph{witness of unusability} for rule $r$ (with respect to $I$).
+\medskip\\
+\textbf{Remark.} The reader may regard $I$ as a collection of known facts about $\mathrm{P}$ thus far. Rules for which (1) holds cannot be used to derive more facts since its body is false. Rules for which (2) holds have unfoundedness in them: To derive a fact from an unfounded set $A$, i.e.\ to decide the truth value of an atomic formula in $A$, the truth values of some (other) atomic formulas must be decided first.
 
-  \bibitem{gelfond} 
-  Michael Gelfond and Vladimir Lifschitz. 
-  The stable model semantics for logic programming.  
-  In \textit{Proceedings of International Logic Programming Conference and Symposium}, pages 1070-1080. 
-  MIT Press, 2008.
+An example to illustrate the above definition is the following program
+\[
+\begin{array}{lll}
+p(a) & \leftarrow & p(c), not \ p(b) \cr
+p(b) & \leftarrow & not \ p(a) \cr
+p(e) & \leftarrow & not \ p(d) \cr
+p(c) & \ & \ \cr
+p(d) & \leftarrow & q(a), not \ q(b) \cr
+p(d) & \leftarrow & q(b), not \ q(c) \cr
+q(a) & \leftarrow & p(d) \cr
+q(b) & \leftarrow & q(a)
+\end{array}
+\]
+The set $\{p(d), q(a), q(b), q(c)\}$ is unfounded with respect to $\emptyset$: There is no instantiated rule for $q(c)$ to decide its truth value; for each of the remaining atomic formulas, condition (2) applies. In contrast, the set $\{p(a), p(b)\}$ is not unfounded because the interdependency between $p(a)$ and $p(b)$ is through negation; as soon as either of them is declared false, the other must be true.
 
-  \bibitem{ferraris} 
-  Paolo Ferraris and Vladimir Lifschitz. 
-  Mathematical foundations of answer set programming.  
-  In \textit{We Will Show Them! Essays in Honour of Dov Gabbay}, pages 615-664. 
-  King's College Publications, 2005.
+The reader should note that unfounded sets are closed under union. Thus, it is valid to speak of the \emph{greatest unfounded set} of $\mathrm{P}$ with respect to $I$, denoted $\mathbf{U}_\mathrm{P}(I)$, which is defined to be the union of all sets that are unfounded with respect to $I$.
+\medskip\\
+\textbf{Remark.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item Let $\mathrm{P}$ be a program and $R$ be a set of literals, and let $A$ be an unfounded set of $\mathrm{P}$ with respect to $R$, then for any subset $S \subseteq A$, $A - S$ is unfounded with respect to $R \cup \neg \cdot S$. In other words, if we deduce that certain facts $S$ are in an unfounded set $A$ and add their complements to $R$, the other unfounded atomic formulas remain unfounded.
+%
+\item Let $I$ be a partial interpretation consisting of a set of positive literals $Q$ and a set of negative literals $\neg \cdot S$. If $I$ does not weakly falsify any instantiated rule of program $P$, then $S$ is an unfounded set with respect to $Q$.
+%
+\end{enumerate}
 
-  \bibitem{Marek} 
-  Victor Marek and Miroslaw Truszczynski. 
-  Stable models and an alternative logic programming paradigm.  
-  In \textit{The Logic Programming Paradigm: a 25-Year Perspective}, pages 375-398. 
-  Springer Verlag, 1999.
-
-  \bibitem{lee} 
-  Paolo Ferraris, Joohyung Lee, and Vladimir Lifschitz. 
-  A new perspective on stable models.  
-  In \textit{Proceedings of International Joint Conference on Artificial Intelligence (IJCAI)}, pages 372-379. 
-  2007.
-
-  \bibitem{fitting}
-  Melvin Fitting. 
-  Fixpoint semantics for logic programming a survey. 
-  In \textit{Theoretical Computer Science}, pages 25-51. Elsevier Science, 2002.
-
-  \bibitem{lifschitz2} 
-  Vladimir Lifschitz. 
-  Thirteen definitions of a stable model.  
-  In \textit{Lecture Notes in Computer Science}, vol 6300. 
-  Springer Verlag, 2010.
-
-  \bibitem{Abiteboul1}
-  Serge Abiteboul, Richard Hull, Victor Vianu.
-  Calculus + Fixpoint.
-  In \textit{Foundations of Databases}, pages 347-355.
-  Addison-Wesley, 1995.
-  
-  \bibitem{Abiteboul2}
-  Serge Abiteboul, Richard Hull, Victor Vianu.
-  First Order, Fixpoint, and While.
-  In \textit{Foundations of Databases}, pages 429-459.
-  Addison-Wesley, 1995.
-
-  \bibitem{kolaitis1}
-  Phokion G. Kolaitis.
-  On the Expressive Power of Logics on Finite Models.
-  In \textit{Finite Model Theory and Its Applications}, pages 27-119
-  Springer Verlag, 2007.
-
-  \bibitem{Tarski}
-  A. Tarski. 
-  A lattice theoretical fixpoint theorem and its applications. 
-  In \textit{Pacific Journal of Mathematics}, 5:285–309, 1955.
-
-  \bibitem{Ajtai}
-  M. Ajtai and Y. Gurevich. 
-  Monotone versus positive. 
-  In \textit{Journal of the ACM}, 34:1004–1015, 1987.
-
-  \bibitem{Cook}
-  S. A. Cook. 
-  An observation of time–storage trade-off. 
-  In \textit{Journal of Computer and System Sciences}, 9:308–316, 1974.
-
-  \bibitem{VanGelder}
-  A. Van Gelder, K. A. Ross and J. S. Schlipf.
-  The Well-Founded Semantics for General Logic Programs.
-  In \textit{Journal of the ACM}, 38:619-649, 1991.
-\end{thebibliography}
-\end{document}
+\subsubsection{Well-Founded Partial Semantics}
+In this section we explain a sequence of set transformation that 
+\subsection{Comparisons}
+TO BE DONE
+\subsection{Computational Complexity}
+TO BE DONE
