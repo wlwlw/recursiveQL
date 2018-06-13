@@ -1,4 +1,4 @@
-We have discussed the extension of the relational calculus with recursive queries 
+We have discussed the extension of the calculus with recursive queries 
 using the least fixpoint semantics. Another desirable feature that is absent from 
 basic logic programming is negation. There are two forms of negation: strong (``classical'') 
 negation to express falsity and negation as failure to express non-truth. The 
@@ -10,7 +10,7 @@ Going forward, we will instead focus on logic programs with negation as failure.
 
 The theory behind negation as failure arises from nonmonotonic reasoning, which states 
 the possibility of retracting a conclusion given new information [5]. For instance, 
-Consider the following logic program with negation as failure:
+consider the following logic program with negation as failure:
 \begin{align}
     \begin{split}
         & p(a). \hspace{1em} p(b). \hspace{1em} q(a). \\
@@ -60,7 +60,7 @@ The major challenge when extending logic programming with negation is to invent 
 captures the correct minimal model of a program. 
 Two approaches are proposed to preserve the notion of a single intended model for a logic program 
 in the presence of negation. 
-Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursions and negation are 
+Apt, Blair, and Walker [6] introduce a stratified class of logic programs in which recursion and negation are 
 mutually exclusive. In this case, there exists a single \emph{perfect model} for every stratified program. 
 This technique, however, comes at the expense of restricting the semantics of logic programs with negation. 
 The second approach removes this restriction by assigning to an arbitrary program a single 3-valued 
