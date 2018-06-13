@@ -13,10 +13,10 @@ recursion using the least fixpoint semantics, as well as examine the interpretat
 of logic programs with negation as failure using the stable model 
 and well-founded semantics.
 
-Least Fixpoint Query is an extension to relational calculus that embrace recursion. It extends the expressive power of relational calculus by including the computation of least fixed point into its semantics. The least fixed point here is defined as follow: 
-Let $\Phi$ be a mapping between k-ary relations that is expressible in relational calculus. Then if a k-ary relation $P$ satisfy $P= \Phi(P)$, $P$ is said to be a fixed point of $\Phi$. If $P$ also satisfy $P \subseteq P^*$ for all fixed point $P^*$ of $\Phi$, then $P$ is said to be a least fixed point of $\Phi$.
-We will talk least fixed point in more detail in later section. Where you can see least fixed point is guaranteed to exists following the syntax of Least Fixpoint Query. And the computation of it is in PTIME, which farther more results the data complexity of Least Fixpoint Query also in PTIME (P-complete precisely). 
-In this paper we will also talk about the improved expressive power of Least Fixpoint Query. Where we demonstrate it via an example decision problem called Path Systems, which is expressible in Least Fixpoint Query but not in relational calculus. We will also cover the important theorems behind the reasoning of their expressive power and some sketch of proofs.
+Least Fixpoint Query is an extension to relational calculus that embraces recursion. It extends the expressive power of relational calculus by including the computation of least fixed point into its semantics. The least fixed point here is defined as follow: 
+Let $\Phi$ be a mapping between $k$-ary relations that are expressible in relational calculus. Then if a $k$-ary relation $P$ satisfies $P= \Phi(P)$, $P$ is said to be a fixed point of $\Phi$. If $P$ also satisfies $P \subseteq P^*$ for all fixed point $P^*$ of $\Phi$, then $P$ is said to be a least fixed point of $\Phi$.
+We will talk least fixed point in more detail in later section. Where you can see least fixed point is guaranteed to exist following the syntax of Least Fixpoint Query. And the computation of it is in PTIME, which furthermore results in the data complexity of Least Fixpoint Query also in PTIME (P-complete precisely). 
+In this paper, we will also talk about the improved expressive power of Least Fixpoint Query via an example decision problem called Path Systems, which is expressible in Least Fixpoint Query but not in relational calculus. We will also cover the important theorems behind the reasoning of its expressive power and some sketches of proof.
 
 In addition to recursion, another desirable addition to database query languages 
 is negation. In this paper, we explore a weaker version of classical negation called 
@@ -61,4 +61,4 @@ formalism behind negation as failure and the problem of
 having more than one minimal Herbrand models. Section 4 and 5 
 study the stable model and well-founded semantics as the two 
 commonly accepted mechanisms to represent logic programs with 
-negation. The last section puts our work into perspective.
+negation. The last section concludes our work.
