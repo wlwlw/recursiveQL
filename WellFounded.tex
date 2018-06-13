@@ -120,5 +120,20 @@ We then let $I^\infty$, the fixed point of $\mathbf{W}_\mathrm{P}$, to represent
 Having introduced the well-founded semantics, we discuss below some comparisons between it and other approaches.
 
 Clark introduced the completed program as a way of formalizing the notion that facts not inferable from the rules in the program were to be regarded as false [\ref{Clark}]. The idea is to collect all rules having the same head predicate into a single rule whose body is a disjunction of conjunctions, then replace the symbol $\leftarrow$ (if) by $\leftrightarrow$ (if and only).
-\subsection{Computational Complexity}
-TO BE DONE
+
+The original ``logical consequence'' approach essentially declares that only conclusions that are logical consequences (in the classical, 2-valued sense) of the completed program should be inferred. When the completed program is consistent, this approach implicitly defines a 3-valued interpretation: Assign value true to instantiated atoms that are true in all (2-valued, not necessarily Herbrand) models of the completed program, false to instantiated atoms that are false in all models, and $\bot$ (unknown) to all other instantiated atoms. By [\ref{fitting2}], the completion of every program has a (unique) minimum 3-valued Herbrand model. Fitting suggests that this model be taken for the semantics of the program, which we call the \emph{Fitting model}. 
+
+Having introduced several different approaches, we make the following comparisons between well-founded semantics and the other semantics:
+\medskip\\
+\textbf{Remark.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item The Fitting model is a subset of $I^\infty$.
+%
+\item If program $\mathrm{P}$ has a well-founded total model, then that model is the unique stable model.
+%
+\item The well-founded partial model of $\mathrm{P}$ is a subset of every stable model of $\mathrm{P}$.
+%
+\item If program $\mathrm{P}$ is locally stratified then it has a well-founded model, which is identical to the \emph{perfect model}.\footnote{See [\ref{prz}] for definition of perfect models.}
+%
+\end{enumerate}
