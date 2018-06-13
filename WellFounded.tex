@@ -1,7 +1,7 @@
 %\begin{align*}, multiline*
 Allowing negation in the body of a rule of to have general logic programs may have another problem: As indicated by some research, some programs do not have a satisfactory \emph{total} model. It is thus natural to seek an appropriate \emph{partial} model for such programs.
 
-In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in [\ref{VanGelder}], is explained and compared to it as well as to other semantics.
+In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in \cite{VanGelder}, is explained and compared to it as well as to other semantics.
 
 \subsection{Preliminaries}
 In this subsection, We explain some notions that are used in well-founded semantics.
@@ -28,7 +28,7 @@ A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that sa
 \end{enumerate}
 
 \subsection{Unfounded Sets and Well-Founded Partial Models}
-Having described the preliminaries in the previous subsection, we explain the notions of unfounded sets and well-founded partial models, which are the main part of [\ref{VanGelder}].
+Having described the preliminaries in the previous subsection, we explain the notions of unfounded sets and well-founded partial models, which are the main part of \cite{VanGelder}.
 
 \subsubsection{Unfounded Sets}
 Given a program $\mathrm{P}$, let $H$ denote the Herbrand base of $\mathrm{P}$, and assume $I$ is a partial interpretation of $\mathrm{P}$. We say $A \subseteq H$ is an \emph{unfounded set} of $\mathrm{P}$ with respect to $I$ if this condition is true for each ground atomic formula $p \in A$: Either there is no instantiated rule of $\mathrm{P}$ for $p$ or, for each instantiated rule $r$ of $\mathrm{P}$ whose head is $p$, at least one of the following statement is true
@@ -113,15 +113,15 @@ We then let $I^\infty$, the fixed point of $\mathbf{W}_\mathrm{P}$, to represent
 %
 \item We then say that $I^\infty$ is the \emph{well-founded partial model} and, if $I^\infty$ is a total interpretation, i.e.\ if for every $p \in H$ either $p$ or $\neg p$ is in $I^\infty$, then we say $I^\infty$ is a \emph{well-founded model}.
 %
-\item Thus, every Horn program has a well-founded model $I^\infty$, which is the minimum model in the sense of Van Emden and Kowalski [\ref{VanEmden}], that is, its positive Iiterals are contained in every Herbrand model.
+\item Thus, every Horn program has a well-founded model $I^\infty$, which is the minimum model in the sense of Van Emden and Kowalski \cite{VanEmden}, that is, its positive Iiterals are contained in every Herbrand model.
 %
 \end{enumerate}
 \subsection{Comparisons}
 Having introduced the well-founded semantics, we discuss below some comparisons between it and other approaches.
 
-Clark introduced the completed program as a way of formalizing the notion that facts not inferable from the rules in the program were to be regarded as false [\ref{Clark}]. The idea is to collect all rules having the same head predicate into a single rule whose body is a disjunction of conjunctions, then replace the symbol $\leftarrow$ (if) by $\leftrightarrow$ (if and only).
+Clark introduced the completed program as a way of formalizing the notion that facts not inferable from the rules in the program were to be regarded as false \cite{Clark}. The idea is to collect all rules having the same head predicate into a single rule whose body is a disjunction of conjunctions, then replace the symbol $\leftarrow$ (if) by $\leftrightarrow$ (if and only).
 
-The original ``logical consequence'' approach essentially declares that only conclusions that are logical consequences (in the classical, 2-valued sense) of the completed program should be inferred. When the completed program is consistent, this approach implicitly defines a 3-valued interpretation: Assign value true to instantiated atoms that are true in all (2-valued, not necessarily Herbrand) models of the completed program, false to instantiated atoms that are false in all models, and $\bot$ (unknown) to all other instantiated atoms. By [\ref{fitting2}], the completion of every program has a (unique) minimum 3-valued Herbrand model. Fitting suggests that this model be taken for the semantics of the program, which we call the \emph{Fitting model}. 
+The original ``logical consequence'' approach essentially declares that only conclusions that are logical consequences (in the classical, 2-valued sense) of the completed program should be inferred. When the completed program is consistent, this approach implicitly defines a 3-valued interpretation: Assign value true to instantiated atoms that are true in all (2-valued, not necessarily Herbrand) models of the completed program, false to instantiated atoms that are false in all models, and $\bot$ (unknown) to all other instantiated atoms. By \cite{fitting2}, the completion of every program has a (unique) minimum 3-valued Herbrand model. Fitting suggests that this model be taken for the semantics of the program, which we call the \emph{Fitting model}. 
 
 Having introduced several different approaches, we make the following comparisons between well-founded semantics and the other semantics:
 \medskip\\
@@ -134,6 +134,6 @@ Having introduced several different approaches, we make the following comparison
 %
 \item The well-founded partial model of $\mathrm{P}$ is a subset of every stable model of $\mathrm{P}$.
 %
-\item If program $\mathrm{P}$ is locally stratified then it has a well-founded model, which is identical to the \emph{perfect model}.\footnote{See [\ref{prz}] for definition of perfect models.}
+\item If program $\mathrm{P}$ is locally stratified then it has a well-founded model, which is identical to the \emph{perfect model}.\footnote{See \cite{prz} for definition of perfect models.}
 %
 \end{enumerate}
