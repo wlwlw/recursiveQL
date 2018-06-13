@@ -4,7 +4,7 @@ Allowing negation in the body of a rule of to have general logic programs may ha
 In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in [\ref{VanGelder}], is explained and compared to it as well as to other semantics.
 
 \subsection{Preliminaries}
-In this subsection, We explain some notions that are used in well-founded semantics.
+In this subsection, we explain some notions that are used in well-founded semantics.
 
 Given a program $\mathrm{P}$, its \emph{Herbrand universe} is the set of ground terms formed from constants and function symbols in $\mathrm{P}$, and its \emph{Herbrand base} is the set of predicates applied to the ground terms in the Herbrand universe. Note that the program $\mathrm{P}$ may not contain constants or function symbols. In the absence of the former, a constant is added arbitrarily; in the absence of the latter, we then have that both the Herbrand universe and the Herbrand base are countably infinite (otherwise they are finite). An \emph{instantiated rule} of $\mathrm{P}$ is one in which all occurrences of variables are replaced by ground terms in the Herbrand universe. The \emph{Herbrand instantiation} of $\mathrm{P}$ is the set of all instantiated rules.
 
@@ -23,7 +23,7 @@ A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that sa
 %
 \item Since interpretations are sets, it is natural to consider one to be contained in another if the former is a subset of the latter.
 %
-\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some instantiated rules of it, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied. Of course, this cannot be done if $I$ falsifies every instantiated rule; if $I$ only weakly falsifies some rules, then there is still hope for this extension; and \emph{if $I$ does not weakly falsify any instantiated rule, then $I$ is a partial model of $\mathrm{P}$}.
+\item Note that a partial model $I$ of a program $\mathrm{P}$ may not satisfy some of its instantiated rules, but $I$ can be extended -- adding (possibly no) literals to it -- so that all rules are satisfied. Of course, this cannot be done if $I$ falsifies every instantiated rule; if $I$ only weakly falsifies some rules, then there is still hope for this extension; and \emph{if $I$ does not weakly falsify any instantiated rule, then $I$ is a partial model of $\mathrm{P}$}.
 %
 \end{enumerate}
 
