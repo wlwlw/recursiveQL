@@ -1,6 +1,7 @@
 There is a large body 
 of study on the concept of a stable model based on different interpretations. To put our report into 
-context, we first cover the classic grounding definition of stable models introduced in Gelfond and Lifschitz [2], 
+context, we first cover the classic grounding definition of stable models introduced in Gelfond and Lifschitz 
+\cite{gelfond}, 
 which provides an intuitive mechanism using autoepistemic logic to model logic programs with negation. 
 Then, we describe the modern  
 technique of circumscription to obtain a stable model by translating a logic program 
@@ -11,7 +12,7 @@ we illustrate the application of stable models in ASP.
 
 \subsection{Gelfond-Lifschitz Reduct}
 The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation 
-process [2] of removing negations from a logic program $\Pi$. 
+process \cite{gelfond} of removing negations from a logic program $\Pi$. 
 We first ground $\Pi$ so that each variable occurrence in $\Pi$ is replaced by its ground instances. 
 The reduct of $\Pi$ relative to a set $M$ of its ground atoms is obtained by the following two 
 elimination procedures:
@@ -21,7 +22,7 @@ elimination procedures:
 \end{enumerate}
 The reduct of $\Pi$ follows the intuition behind a stable expansion in 
 autoepistemic logic. Here, $M$ is considered the possible set of beliefs that a rational 
-agent might hold, given $\Pi$ as his premises [2]. If a rule $R$ contains a literal $not \: A_i$ 
+agent might hold, given $\Pi$ as his premises \cite{gelfond}. If a rule $R$ contains a literal $not \: A_i$ 
 such that $A_i \in M$, then we cannot establish $not \: A_i$. Hence, $R$ is false in $M$ and can be 
 removed from $\Pi$, as stated in procedure (i). Otherwise, if $A_i \not \in M$, we can conclude 
 $not \: A_i$, and this literal is trivial. Removing $not \: A_i$ from the body of $R$ in 
@@ -63,7 +64,7 @@ model removes the hassle of grounding through the use of circumscription.
 \subsection{Circumscription}
 Similar to autoepistemic and default logic, circumscription is another variant of 
 nonmonotonic reasoning that exerts minimization on the extension of predicates in 
-second-order logic [5]. We have been using minimal Herbrand models to describe the semantics 
+second-order logic \cite{lifschitz2}. We have been using minimal Herbrand models to describe the semantics 
 of logic programs. Yet, a logic program can also be seen as a representation of a set of 
 first-order formulas called \emph{program completion}. For instance, program (1) 
 represents the following formula
@@ -106,7 +107,7 @@ then $CIRC[F]$ is
 \subsection{Modified Circumscription}
 One advantage that circumscription has over the Gelfond-Lifschitz reduct 
 is the omission of grounding as the preliminary step to determine a stable 
-model. Ferraris et al. [4] proposes a modification of circumscription of 
+model. Ferraris et al. \cite{lee} proposes a modification of circumscription of 
 a program completion $F$, $SM[F]$, which is denoted as 
 \begin{align}
     F \land \neg \exists u((u < p) \land F^*(u)) 
@@ -144,21 +145,21 @@ Because of its intuitive definition, the stable model semantics is commonly
 accepted as the standard for logic programming with negation. The 
 following are the properties of the stable model semantics:
 \begin{enumerate}[label=(\roman*)]
-    \item Any stable model of a logic program $\Pi$ is its minimal Herbrand model [2]. 
-    \item A well-founded model of $\Pi$ defines its unique stable model [2]. 
+    \item Any stable model of a logic program $\Pi$ is its minimal Herbrand model \cite{gelfond}. 
+    \item A well-founded model of $\Pi$ defines its unique stable model \cite{gelfond}. 
     \item If $\Pi$ is stratified, then there is a unique stable model that coincides 
-    with the perfect model of $\Pi$ [2].
-    \item Any stable model of $\Pi$ is a subset of the set of head atoms in $\Pi$ [8].
+    with the perfect model of $\Pi$ \cite{gelfond}.
+    \item Any stable model of $\Pi$ is a subset of the set of head atoms in $\Pi$ \cite{ferraris}.
     \item $\Pi$ might have several stable models, or no stable models at all. For 
     instance, the program consisting of one rule $p \leftarrow not \: p$ has no 
     stable models, while the program with two rules $p \leftarrow not \: q$ 
     and $q \leftarrow not \: p$ has two stable models, $\{p\}$ nad $\{q\}$. The 
     well-founded semantics helps solve this shortcoming of the stable model 
-    semantics by ensuring the existence of a unique stable model for $\Pi$ [1].
+    semantics by ensuring the existence of a unique stable model for $\Pi$ \cite{fitting}.
     \item If there are several stable models for $\Pi$, they are both minimal 
-    and incomparable [1]. 
+    and incomparable \cite{fitting}. 
     \item The problem of determining the existence of a stable model for a finite 
-    propositional logic program is NP-complete [6]. This follows from the expressive 
+    propositional logic program is NP-complete \cite{marek}. This follows from the expressive 
     power of the stable model semantics to represent all decision and search 
     problems in NP. 
 \end{enumerate}
@@ -168,19 +169,19 @@ We have seen that a logic program might have several incomparable stable models,
 which brings into question the use of stable models as the semantics for 
 logic programming with negation. Rather 
 than trying to reconcile the stable model semantics with Horn logic programming, 
-Marek and Truszczynski [6] argue that the lack of a single intended model 
+Marek and Truszczynski \cite{marek} argue that the lack of a single intended model 
 makes the stable model semantics suitable for representing 
 some constraint satisfaction problems whose solutions 
-are a finite family of finite sets to [6]. 
+are a finite family of finite sets to \cite{marek}. 
 They refer logic programming based on the stable model semantics  
 as stable logic programming (SLP). A decision problem that is associated with 
 stable models is whether a finite logic program has a stable model. If we 
 encode an instance $I$ of a decision problem $\Pi$ in the class NP as a propositional program 
 $P ^I _ \Pi$, then $\Pi$ has a solution for $I$ if and only if $P ^I _ \Pi$ 
-has a stable model [6]. Hence, the problem of the existence of a stable model is 
+has a stable model \cite{marek}. Hence, the problem of the existence of a stable model is 
 NP-complete, as stated in property (vii). In comparison to Horn logic programming 
 which can specify any recursively enumerable set, SLP is only able 
-to solve NP problems [6], which, however, are among the most important computational 
+to solve NP problems \cite{marek}, which, however, are among the most important computational 
 problems in computer science.
 
 Unlike Horn logic programming, SLP disallows the use of function symbols in favor of 
@@ -195,7 +196,7 @@ generate-and-test methodology is the basis of answer set programming.
 One key feature of logic programming is the separation of logic from control. The logic 
 of a program itself determines the solutions without any execution specifications from 
 the programmer. In Horn logic programming, the control of a program is accomplished 
-using the \textit{SLD-resolution} to compute the solutions [6]. Accordingly, SLP also 
+using the \textit{SLD-resolution} to compute the solutions \cite{marek}. Accordingly, SLP also 
 has some uniform control mechanisms to process SLP programs and compute their stable models. 
 Since there are no function symbols in SLP, it is possible to exhaust all subsets of the 
 finite Herbrand base of a SLP program for stable model candidates. Both the 
@@ -205,7 +206,7 @@ programming.
 
 \subsection{Answer Set Programming}
 Answer set programming is a form of stable logic programming that solves difficult 
-search problems [8]. ASP uses an answer set solver such as \textit{smodels} as a uniform control 
+search problems \cite{ferraris}. ASP uses an answer set solver such as \textit{smodels} as a uniform control 
 to compute stable models as solutions to a search problem. The frontend of \textit{smodels}, 
 called \textit{lparse}, defines a set of constructs to formulate a search problem before 
 being analyzed by the answer set solver. 
@@ -246,7 +247,7 @@ So far, we have only discussed programs with negation as failure. ASP also suppo
 strong negation in the form of $-p$ to express ``$p$ is false'' as opposed to 
 the negation as failure $not \: p$ to express ``$p$ is not known to be true''. Combining 
 both kinds of negation $-p \: \mathop{:\!\!-} \: not \: p$ gives the closed world assumption 
-stating that ``$p$ is false if there is no evidence that it is true'' [8]. Strong negation 
+stating that ``$p$ is false if there is no evidence that it is true'' \cite{ferraris}. Strong negation 
 is useful to represent negative facts in an incomplete state of knowledge.
 
 Finally, a constraint is a rule with an empty head 
@@ -256,14 +257,14 @@ Finally, a constraint is a rule with an empty head
 which prohibits 
 any generation of a literal $p$. Constraints appear in almost every ASP program to weed out 
 ``bad'' stable models. All of the constructs in ASP are expressible in first-order 
-logic [3]. Hence, the stable models of an ASP program can be determined using the 
+logic \cite{lifschitz1}. Hence, the stable models of an ASP program can be determined using the 
 technique of modified circumscription.
 
 \subsubsection{Generate-and-Test}
 The logic of an ASP program follows the generate-and-test methodology introduced in 
 stable logic programming. The two steps are first (1) to generate all possible stable models 
 for a program, and then (2) to select only those that satisfy additional constraints. Let us 
-consider an example ASP program to find Hamiltonian cycles in a directed graph [7]. First of all, 
+consider an example ASP program to find Hamiltonian cycles in a directed graph \cite{lifschitz0}. First of all, 
 we define a directed graph $G$ with a set of vertices $V$ and a set of edges $E$: 
 $vertex(a)$ for all vertices $a \in V$, and $edge(a,b)$ for all directed edges $(a,b) \in E$. Next, 
 we generate all potential stable models for this problem using the choice rule 
