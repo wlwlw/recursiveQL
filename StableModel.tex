@@ -1,18 +1,18 @@
 There is a large body 
-of study on the concept of a stable model based on different interpretations. To put our report into 
-context, we first cover the classic grounding definition of stable models introduced in Gelfond and Lifschitz 
+of study on the concept of a stable model using different interpretations. To put our paper into 
+context, we first cover the classic definition of a stable model introduced in Gelfond and Lifschitz 
 \cite{gelfond}, 
 which provides an intuitive mechanism using autoepistemic logic to model logic programs with negation. 
 Then, we describe the modern  
 technique of circumscription to obtain a stable model by translating a logic program 
-into a formula of second-order logic (4). The second interpretation of stable models gives semantics 
-to nontraditional constructs found in answer set programming. Subsection 4.5 examines the role of 
-stable model semantics in logic programming and compares it with traditional Horn logic. Finally, 
+into a formula of second-order logic \cite{lee}. The second interpretation of stable models gives semantics 
+to nontraditional constructs found in answer set programming. Section 4.5 examines the role of 
+the stable model semantics in logic programming and compares it with the traditional Horn logic. Finally, 
 we illustrate the application of stable models in ASP. 
 
 \subsection{Gelfond-Lifschitz Reduct}
 The most fundamental definition of a stable model is based on the Gelfond-Lifschitz transformation 
-process \cite{gelfond} of removing negations from a logic program $\Pi$. 
+process \cite{gelfond} of removing negation from a logic program $\Pi$. 
 We first ground $\Pi$ so that each variable occurrence in $\Pi$ is replaced by its ground instances. 
 The reduct of $\Pi$ relative to a set $M$ of its ground atoms is obtained by the following two 
 elimination procedures:
@@ -25,8 +25,8 @@ autoepistemic logic. Here, $M$ is considered the possible set of beliefs that a 
 agent might hold, given $\Pi$ as his premises \cite{gelfond}. If a rule $R$ contains a literal $not \: A_i$ 
 such that $A_i \in M$, then we cannot establish $not \: A_i$. Hence, $R$ is false in $M$ and can be 
 removed from $\Pi$, as stated in procedure (i). Otherwise, if $A_i \not \in M$, we can conclude 
-$not \: A_i$, and this literal is trivial. Removing $not \: A_i$ from the body of $R$ in 
-procedure (ii) does not change the semantics of the program. Since the reduct of $\Pi$ no longer 
+$not \: A_i$, and this literal is trivial. Removing $not \: A_i$ from the body of $R$ (as in procedure (ii)) 
+does not change the semantics of the program. Since the reduct of $\Pi$ no longer 
 contains any negation, it has a unique minimal Herbrand model.  
 It follows that $M$ is a stable model of $\Pi$ if it coincides with such minimal Herbrand model.
 
@@ -107,7 +107,7 @@ then $CIRC[F]$ is
 \subsection{Modified Circumscription}
 One advantage that circumscription has over the Gelfond-Lifschitz reduct 
 is the omission of grounding as the preliminary step to determine a stable 
-model. Ferraris et al. \cite{lee} proposes a modification of circumscription of 
+model. Ferraris et al. \cite{lee} propose a modified circumscription of 
 a program completion $F$, $SM[F]$, which is denoted as 
 \begin{align}
     F \land \neg \exists u((u < p) \land F^*(u)) 
@@ -172,10 +172,10 @@ than trying to reconcile the stable model semantics with Horn logic programming,
 Marek and Truszczynski \cite{marek} argue that the lack of a single intended model 
 makes the stable model semantics suitable for representing 
 some constraint satisfaction problems whose solutions 
-are a finite family of finite sets to \cite{marek}. 
+are a finite family of finite sets \cite{marek}. 
 They refer logic programming based on the stable model semantics  
 as stable logic programming (SLP). A decision problem that is associated with 
-stable models is whether a finite logic program has a stable model. If we 
+stable models is whether or not a finite logic program has a stable model. If we 
 encode an instance $I$ of a decision problem $\Pi$ in the class NP as a propositional program 
 $P ^I _ \Pi$, then $\Pi$ has a solution for $I$ if and only if $P ^I _ \Pi$ 
 has a stable model \cite{marek}. Hence, the problem of the existence of a stable model is 
@@ -185,7 +185,7 @@ to solve NP problems \cite{marek}, which, however, are among the most important 
 problems in computer science.
 
 Unlike Horn logic programming, SLP disallows the use of function symbols in favor of 
-a finite set of grounding instances and stable models. The syntax of SLP emulates 
+a finite set of ground instances and stable models. The syntax of SLP emulates 
 that of DATALOG with negation. The absence of function symbols, however, restricts the 
 use of recursion in SLP. In fact, recursion is defined in terms of intensional predicates, 
 and not in terms of function symbols additionally used in Horn logic programming. Instead 
@@ -215,7 +215,7 @@ being analyzed by the answer set solver.
 Programs 
 with multiple stable models usually consist of choice formulas. For example, the rule 
 \begin{align}
-    {q(X)} \: \mathop{:\!\!-} \: p(X).
+    \{q(X)\} \: \mathop{:\!\!-} \: p(X).
 \end{align}
 describes all possible subsets of a given set $p$. 
 
@@ -258,7 +258,7 @@ which prohibits
 any generation of a literal $p$. Constraints appear in almost every ASP program to weed out 
 ``bad'' stable models. All of the constructs in ASP are expressible in first-order 
 logic \cite{lifschitz1}. Hence, the stable models of an ASP program can be determined using the 
-technique of modified circumscription.
+technique of modified circumscription, as described in Section 4.3.
 
 \subsubsection{Generate-and-Test}
 The logic of an ASP program follows the generate-and-test methodology introduced in 
@@ -277,7 +277,7 @@ cycle. Adding the following constraints
     & \mathop{:\!\!-} \: 2 \: \{in(X,Y) \: : \: edge(X,Y)\}, \: vertex(X). \\
     & \mathop{:\!\!-} \: 2 \: \{in(X,Y) \: : \: edge(X,Y)\}, \: vertex(Y). 
 \end{align*}
-eliminates subsets of edges that contains pairs of edges starting or ending at the same 
+eliminates subsets of edges that contain pairs of edges starting or ending at the same 
 vertex. We further refine the stable models to the problem with these additional clauses: 
 \begin{align*}
     & r(X) \: \mathop{:\!\!-} \: in(0,Y), \: vertex(X).\\
@@ -290,9 +290,9 @@ vertex by a non-empty sequence of $in$ edges.
 
 We have presented two definitions of a stable model using the classic 
 Gelfond-\\Lifschitz reduct method 
-and modified circumscription. Even though the stable model semantics has its limitation in 
-defining a single intended problem of a logic program, it is suitable for solving 
-the type of search problems that involve multiple solutions. One such application is answer 
+and the modified circumscription. Even though the stable model semantics has its limitation in 
+defining a single intended least model for a logic program, it is suitable for solving 
+the type of search problems that involves multiple solutions. One such application is answer 
 set programming, which computes stable models as solutions to a search problem. The next 
 section discusses an alternative semantics for logic programming with negation using 
 a well-founded model.
