@@ -1,6 +1,6 @@
-In conclusion, we have studied the extension of standard query languages with recursion and negation. First, we showed how to embody recursion in relational calculus using the least fixed point, which lead to Least Fixpoint Query. Least Fixpoint Query can express query that are not expressible in relational calculus, e.g.  Path Systems. And we see it makes least fixpoint query having data complexity in P-Complete instead of LOGSPACE in which of relational calculus. And we see important theorem used for analysis of expressive power of relational calculus and logic programs, the Method of Ehrenfeucht-Fra\"{i}ss\'{e} games. From which we can reason Path System is not expressible in relational calculus. Together we see both the expressive power and data complexity of our Least Fixpoint Query. 
+In conclusion, we have studied the extension of standard query languages with recursion and negation. First, we showed how to embody recursion in relational calculus using the least fixed point, which leads to Least Fixpoint Query. Least Fixpoint Query can express queries that are not expressible in relational calculus, e.g.  Path Systems. And we learned that Least Fixpoint Query has data complexity in P-complete instead of LOGSPACE as found in relational calculus. We also covered some important theorems used for the analysis of the expressive power of relational calculus and logic programs, such as the Method of Ehrenfeucht-Fra\"ıss\'e games. We showed that Path Systems is not expressible in relational calculus. Together we deduced both the expressive power and data complexity of our Least Fixpoint Query. 
 
-Besides recursion, we also explore the effect of adding negation 
+Besides recursion, we also explored the effect of adding negation 
 to logic programming. In the presence of the negation operator, 
 some programs can have more than one least Herbrand model. Therefore, 
 we need a different semantics to represent programs with negation 
@@ -24,5 +24,5 @@ Under the stable model semantics, a program is assigned with a
 collection of intended models instead of one. This property 
 gives rise to a new paradigm of answer set programming, 
 which finds solutions to a search problem as stable models. Applications 
-of ASP have been observed in automated product configuration, decision 
-support for the space shuttle, and inference of phylogenetic trees.
+of ASP can be found in automated product configuration, decision 
+support for the space shuttle, and inference for phylogenetic trees \cite{lifschitz0}.
