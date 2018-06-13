@@ -1,0 +1,26 @@
+Besides recursion, we also explore the effect of adding negation 
+to logic programming. In the presence of the negation operator, 
+some programs can have more than one least Herbrand model. Therefore, 
+we need a different semantics to represent programs with negation 
+while still complying with the least model theory. One such 
+example is the stable model semantics. The motivation behind 
+a stable model is based on the nonmonotonic reasoning, more 
+specifically the notion of a unique stable expansion in 
+autoepistemic logic. In this sense, negation is represented as 
+the absence of belief instead of explicit falsity, thus allowing 
+changes in conclusions given new information (or beliefs). The 
+most conventional definition of a stable model is described 
+using the Gelfond-Lifschitz transformation, which is loosely based on 
+autoepistemic logic. Accordingly, a set $M$ of ground atoms is considered 
+stable if it matches the least model of the grounded program $\Pi$ reduced 
+with respect to $M$. We also studied a more modern definition of a stable 
+model using the modified circumscription introduced in Ferraris et al. \cite{lee}. 
+This definition removes the necessity of grounding and instead transforms 
+a logic program $F$ into a second-order formula, $SM[F]$, that minimizes the extension of 
+its predicates. A model of $F$ is stable if it satisfies $SM[F]$. 
+Under the stable model semantics, a program is assigned with a 
+collection of intended models instead of one. This property 
+gives rise to a new paradigm of answer set programming, 
+which finds solutions to a search problem as stable models. Applications 
+of ASP have been observed in automated product configuration, decision 
+support for the space shuttle, and inference of phylogenetic trees.
