@@ -1,7 +1,7 @@
 %\begin{align*}, multiline*
 Allowing negation in the body of a rule of to have general logic programs may have another problem: As indicated by some research, some programs do not have a satisfactory \emph{total} model. It is thus natural to seek an appropriate \emph{partial} model for such programs.
 
-In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in \ref{VanGelder}, is explained and compared to it as well as to other semantics.
+In this section, \emph{well-founded semantics}, a different approach than stable model semantics in the category of canonical model semantics introduced in [\ref{VanGelder}], is explained and compared to it as well as to other semantics.
 
 \subsection{Preliminaries}
 In this subsection, We explain some notions that are used in well-founded semantics.
@@ -28,7 +28,7 @@ A \emph{total model} of a program $\mathrm{P}$ is a total interpretation that sa
 \end{enumerate}
 
 \subsection{Unfounded Sets and Well-Founded Partial Models}
-Having described the preliminaries in the previous subsection, we explain the notions of unfounded sets and well-founded partial models, which are the main part of \ref{VanGelder}.
+Having described the preliminaries in the previous subsection, we explain the notions of unfounded sets and well-founded partial models, which are the main part of [\ref{VanGelder}].
 
 \subsubsection{Unfounded Sets}
 Given a program $\mathrm{P}$, let $H$ denote the Herbrand base of $\mathrm{P}$, and assume $I$ is a partial interpretation of $\mathrm{P}$. We say $A \subseteq H$ is an \emph{unfounded set} of $\mathrm{P}$ with respect to $I$ if this condition is true for each ground atomic formula $p \in A$: Either there is no instantiated rule of $\mathrm{P}$ for $p$ or, for each instantiated rule $r$ of $\mathrm{P}$ whose head is $p$, at least one of the following statement is true
@@ -70,7 +70,52 @@ The reader should note that unfounded sets are closed under union. Thus, it is v
 \end{enumerate}
 
 \subsubsection{Well-Founded Partial Semantics}
-In this section we explain a sequence of set transformation that 
+In this section we introduce a sequence of \emph{transformations} on sets of literals in which its limit defines the well-founded semantics. Recall that a transformation $\mathbf{T}$ is \emph{monotonic} if $\mathbf{T}(I) \subseteq \mathbf{T}(I')$ whenever $I \subseteq I'$.
+
+Given a program $\mathrm{P}$ and an interpretation $I$, the three transformations $\mathbf{T}_\mathrm{P}, \mathbf{U}_\mathrm{P}, \mathbf{W}_\mathrm{P}$ are defined as
+\begin{enumerate}[label=(\arabic*)]
+%
+\item $\mathbf{T}_\mathrm{P}(I)$ consists of all positive literals $p$ such that there is an instantiated rule $r$ of $\mathrm{P}$ where $p$ is the head and each (positive or negative) subgoal literal in the body of $r$ is true in $I$.
+%
+\item $\mathbf{U}_\mathrm{P}(I)$ is the greatest unfounded set of $\mathrm{P}$ with respect to $I$, as introduced in the previous section.
+%
+\item $\mathbf{W}_\mathrm{P}(I) = \mathbf{T}_\mathrm{P}(I) \cup \neg \cdot \mathbf{U}_\mathrm{P}(I)$.
+%
+\end{enumerate}
+Let a program $\mathrm{P}$ be given and let $H$ denote its Herbrand base. Also, let $\alpha$ range over all countable ordinals. Then the sets $I_\alpha \subseteq H$ are defined recursively by
+\begin{enumerate}[label=(\arabic*)]
+%
+\item $I_0 := \emptyset$.
+%
+\item For limit ordinal $\alpha > 0$, $I_\alpha := \bigcup_{\beta < \alpha} I_\beta$.
+%
+\item For successor ordinal $\alpha = \beta + 1$, $I_\alpha := \mathbf{W}_\mathrm{P}(I_\beta)$.
+%
+\end{enumerate}
+Moreover, denote $I^\infty := \bigcup_{\alpha} I_\alpha$. Note that $I^\infty \subseteq H$ also.
+\medskip\\
+\textbf{Remarks.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item Note that by definition, if a literal $p$ is in $I^\infty$ then the smallest ordinal $\alpha$ for which $p$ appears in $I_\alpha$ is a successor ordinal.
+%
+\item The sequence of $I_\alpha$'s as defined above is a monotonic sequence of partial interpretations, i.e.\ they are consistent sets of literals.
+%
+\item By classical results of Tarski, $I^\infty$ is the least fixed point of the transformation $\mathbf{W}_\mathrm{P}$. Since $H$ is countable, $I^\infty = I_\alpha$ for some countable ordinal $\alpha$. The smallest ordinal $\alpha$ for which $I^\infty = I_\alpha$ in the sequence of $I_\alpha$'s is the \emph{closure ordinal} for that sequence. Recall that if $\mathrm{P}$ contains no function symbols then $H$ is finite, and hence the closure ordinal must be finite.
+%
+\end{enumerate}
+We then let $I^\infty$, the fixed point of $\mathbf{W}_\mathrm{P}$, to represent the \emph{well-founded semantics} of program $\mathrm{P}$, so that every positive (or negative) literal in $I^\infty$ denotes that its atomic formula is true (or false, respectively) in $\mathrm{P}$, and that atomic formulas that are missing in $I^\infty$ have no truth values or, ``unknown.''
+\medskip\\
+\textbf{Remarks.}
+\begin{enumerate}[label=(\alph*)]
+%
+\item \emph{Each $I_\alpha$ as defined above does not weakly falsify any instantiated rule of $\mathrm{P}$ and hence is a partial model of $\mathrm{P}$.}
+%
+\item We then say that $I^\infty$ is the \emph{well-founded partial model} and, if $I^\infty$ is a total interpretation, i.e.\ if for every $p \in H$ either $p$ or $\neg p$ is in $I^\infty$, then we say $I^\infty$ is a \emph{well-founded model}.
+%
+\item Thus, every Horn program has a well-founded model $I^\infty$, which is the minimum model in the sense of Van Emden and Kowalski [\ref{VanEmden}], that is, its positive Iiterals are contained in every Herbrand model.
+%
+\end{enumerate}
 \subsection{Comparisons}
 TO BE DONE
 \subsection{Computational Complexity}
